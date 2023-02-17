@@ -1,13 +1,8 @@
-#!/bin/make
-# @(#)Makefile	1.2 04 May 1995 02:06:57
+#!/usr/bin/env make
 #
 # mansion - Mystery Mansion game from the HP3000 FORTRAN ported to C
 #
-# @(#) $Revision: 1.1 $
-# @(#) $Id: Makefile,v 1.1 2004/07/27 22:38:40 chongo Exp $
-# @(#) $Source: /usr/local/src/game/mansion/RCS/Makefile,v $
-#
-# Copyright (c) 2004 by Landon Curt Noll.  All Rights Reserved.
+# Copyright (c) 2004,2023 by Landon Curt Noll.  All Rights Reserved.
 #
 # Permission to use, copy, modify, and distribute this software and
 # its documentation for any purpose and without fee is hereby granted,
@@ -32,7 +27,7 @@
 # Share and enjoy! :-)
 
 
-SHELL= /bin/sh
+SHELL= bash
 CC= cc
 RM= rm
 
