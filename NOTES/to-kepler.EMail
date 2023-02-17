@@ -1,0 +1,32 @@
+EMail sent to Michael Kepler (mookie@tygerstudios.com) on Tue Jul 27 2004:
+
+Fizzbin,
+
+A while back ... somewhere in my mind, you wrote about that game that
+we played in the Linfield HP3000 MPE system called Mystery Mansion.
+I recall that you wanted to know about the game, if it was ported
+elsewhere, etc.
+
+While doing some research on Interactive Fiction I game across
+these references to the Mystery Mansion game.  Here are links
+to the original HP3000 MPE III binaries:
+
+        http://www.3k.com/other/publicdomain.html
+        ftp://ftp.3k.com/PROGS/GAMES/mansion.wrq
+        ftp://ftp.3k.com/PROGS/GAMES/mansion.mover
+
+Here is someone with Mystery Mansion ported to DOS:
+
+        http://www.tc.umn.edu/~sorem002/mm.html
+
+The game was written by Bill Wolpert in FORTRAN for the HP3000.  Later
+on it was ported to C by James Garnett.  Here is a source tarball of
+James Garnett's work that compiles under Un*x and windoz:
+
+        http://ifarchive.flavorplex.com/if-archive/games/pc/mansion-19.2.tar.gz
+
+I have compiled the above tarball under Linux and started the game
+successfully.  It is a C port of the original FORTRAN.  The tarball
+contains both the C code and the FORTRAN code for inspection.
+
+chongo (enjoy) /\oo/\

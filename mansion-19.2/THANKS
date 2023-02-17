@@ -1,0 +1,22 @@
+
+
+I started this port in 1998 while finishing my Master's thesis, or, that is,
+in an effort to avoid thinking about finishing it.  I approached it by 
+performing a dejanews search for anyone else who'd attempted anything like
+it.
+
+Jeff Greenberg was the first I found who had tried it.  His attempted port
+to BASIC, and our subsequent conversations, clarified several issues.  He
+also gave me a copy of the Fortran IV source from which he worked.
+
+Roy Buzdor gave me a second copy of the source for comparison's sake, and
+described the system-call semantics of a variety of HP1000 syscalls which
+enabled me to really get the port going. 
+
+Tracy Johnson actually gave me no-strings access to an HP3000 running the
+original Mystery Mansion, invaluable for consistency checks!
+
+Mark von Minden and Alia Rayl found the bulk of the bugs in early versions.
+Rebecca Zane discovered some seriously nasty ones that only someone who
+remembered the game could have found.
+

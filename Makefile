@@ -3,9 +3,9 @@
 #
 # mansion - Mystery Mansion game from the HP3000 FORTRAN ported to C
 #
-# @(#) $Revision$
-# @(#) $Id$
-# @(#) $Source$
+# @(#) $Revision: 1.1 $
+# @(#) $Id: Makefile,v 1.1 2004/07/27 22:38:40 chongo Exp $
+# @(#) $Source: /usr/local/src/game/mansion/RCS/Makefile,v $
 #
 # Copyright (c) 2004 by Landon Curt Noll.  All Rights Reserved.
 #
