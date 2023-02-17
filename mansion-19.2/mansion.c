@@ -839,11 +839,11 @@ MMSB_80:
 			for (J=0; J<8; J++) {
 				if (IWRD[I][J] == ITEM[K][J])
 					IC++;
-					if (IC == 8)
-						IWRD[I][8]=3;
-					if (IC == 8)
-						goto MMSB_169;
-				}
+				if (IC == 8)
+					IWRD[I][8]=3;
+				if (IC == 8)
+					goto MMSB_169;
+			}
 		}
 	
 		for (K=1; K<=17; K++) {
