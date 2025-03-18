@@ -56,7 +56,7 @@ remembered the game could have found.
 
 ## Notes from Landon Curt Noll
 
-The C code was ported to be able to compiler under a c17 standard compiler.
+The C code was ported to be able to compiler under a c17 standard C compiler.
 This mainly included using more modern C function declarations instead K&R style function declarations.
 
 Trailing whitespace was removed from the source.
@@ -89,8 +89,8 @@ was changed to:
       if ((IWRD[2][9] == 97) || (IWRD[2][9] == 98)){
 ```
 
-It is hoped that these obvious bugs are mot "`features`" and that the game does
-not depend in this mistakes.
+It is hoped that these obvious bugs are not "`features`" and that the game does
+not depend in the above C code mistakes.
 
 
 # Reporting Security Issues
