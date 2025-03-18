@@ -1,5 +1,8 @@
 # mansion
 
+Mystery Mansion game from the HP3000 FORTRAN ported to C
+
+
 ## TL;DR
 
 
