@@ -1,35 +1,85 @@
-
-MANSION(6)                                                      MANSION(6)
-
-NAME
-     mansion - a murder mystery text adventure
-
-SYNOPSIS
-     /usr/games/mansion
-
-DESCRIPTION
-     Discover who committed the murder, get the police to arrest them, and 
-     escape alive before the end of the day, when the world of mansion comes 
-     to an end.  Like adventure(6), mansion is more or less self-descriptive,
-     and a large part of the game is simply to find out what you can and 
-     cannot do.  As far as can be ascertained, nobody has ever managed to 
-     get all 999 points, although it is entirely possible.
-
-     To terminate a game, enter ``quit''; to save a game for later resumption,
-     enter ``suspend'' and then ``restore'' in the first move of a new game
-     to resume it.  If you want to play a specific mystery again, then
-     enter ``mystery'' as the first command of a new game.  For hints, you
-     can always enter ``help''.
-
-HISTORY
-     mansion appears to have been written originally around 1980 (or even 
-     earlier) for the HP1000 running RTE (Real Time Executive) and later 
-     ported to the HP3000 and MPE (Multi-Processing Executive).  It existed 
-     mainly under MPE until 1999, when it was ported to C and released to the 
-     Unix world for the sake of interactive-fiction lovers everywhere.
-
-     
-AUTHORS
-     The game of mansion was written originally in Fortran IV by John Rasins.  
-     The C port was done by James Garnett (garnett@catbelly.com) in an effort 
-     to avoid finishing a dissertation.
+.\" section 6 man page for mansion
+.\"
+.\" This man page was originally a raw text file that looked like
+.\" a cat page / text file: possibly written by James Garnett.  Landon Noll
+.\" converted this into a true nroff man page.
+.TH mansion 6 "17 March 2025" "mansion" "murder mystery text adventure"
+.SH NAME
+.B mansion
+.SH SYNOPSIS
+.B /usr/local/games/mansion
+.SH DESCRIPTION
+Discover who committed the murder, get the police to arrest them, and
+escape alive before the end of the day, when the world of mansion comes
+to an end.
+Like
+.BR adventure (6),
+mansion is more or less self-descriptive,
+and a large part of the game is simply to find out what you can and
+cannot do.
+As far as can be ascertained, nobody has ever managed to
+get all 999 points, although it is entirely possible.
+.PP
+To terminate a game, enter:
+.PP
+.in +0.5i
+.B quit
+.in -0.5i
+.PP
+to save a game for later resumption, enter:
+.PP
+.in +0.5i
+.B suspend
+.in -0.5i
+.PP
+and then:
+.PP
+.in +0.5i
+.B restore
+.in -0.5i
+.PP
+in the first move of a new game to resume it.
+If you want to play a specific mystery again, then enter:
+.PP
+.in +0.5i
+.B mystery
+.in -0.5i
+.PP
+as the first command of a new game.
+For hints, you can always enter:
+.PP
+.in +0.5i
+.B help
+.in -0.5i
+.SH HISTORY
+mansion appears to have been written originally around 1980 (or even earlier)
+for the
+.B HP1000
+running
+.BR RTE (Real Time Executive)
+and later ported to the
+.B HP3000
+and
+.BR MPE (Multi-Processing Executive).
+It existed mainly under
+.B MPE
+until 1999, when it was ported to C and released to the
+Unix world for the sake of interactive-fiction lovers everywhere.
+.SH AUTHORS
+The game of mansion was written originally in Fortran IV by
+.BR John\ Rasins .
+The C port was done by
+.B James\ Garnett
+(garnett@catbelly.com)
+in an effort to avoid finishing a dissertation.
+.PP
+This man page was converted from a raw raw cat page text file into
+an nroff document by
+.BR Landon\ Curt\ Noll .
+The code was ported, along with a few bug fixes to a c17 standard C compiler by:
+.BR Landon\ Curt\ Noll .
+This code was make available on
+.B GitHub
+via:
+.sp 1
+.IR https://github.com/lcn2/mansion

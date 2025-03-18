@@ -29,6 +29,7 @@
 
 SHELL= bash
 CC= cc
+CP= cp
 RM= rm
 
 # the version we build and install
@@ -39,27 +40,33 @@ SRC= ${VERSION}
 
 TOPNAME= game
 INSTALL= install
-DESTDIR= /usr/local/bin
+DESTDIR= /usr/local/games
+MAN6DIR= /usr/local/man/man6
 
-all: ${SRC}/mansion
+all: mansion
+
+mansion: ${SRC}/mansion ${SRC}/mansion.6
+	${CP} -f ${SRC}/mansion $@
 
 ${SRC}/mansion:
-	cd ${SRC}; $(MAKE) mansion-unix
+	cd ${SRC}; ${MAKE} mansion-unix
 
 clean:
-	cd ${SRC}; $(MAKE) $@
-	${RM} -f ${SRC}/mansion.exe
+	cd ${SRC}; ${MAKE} $@
+	${RM} -f ${SRC}/mansion
 
-distclean:
-	cd ${SRC}; $(MAKE) clean
-	${RM} -f ${SRC}/mansion.exe
+distclean: clean
 
 install: all
+	${INSTALL} -d -m 0755 ${DESTDIR}
 	${INSTALL} -m 0555 ${SRC}/mansion ${DESTDIR}
+	${INSTALL} -d -m 0755 ${MAN6DIR}
+	${INSTALL} -m 0444 ${SRC}/mansion.6 ${MAN6DIR}
 
 clobber:
-	cd ${SRC}; $(MAKE) clean
-	${RM} -f ${SRC}/mansion.exe
+	cd ${SRC}; ${MAKE} clean
+	${RM} -f ${SRC}/mansion mansion
+	${RM} -rf ${VERSION}/mansion.dSYM
 
 configure:
 	@echo nothing to configure

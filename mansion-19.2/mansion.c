@@ -3,8 +3,8 @@
  *
  * Explore the mansion, solve the mystery!
  *
- * C version of the HP1000 (and later HP3000) text adventure game.  The 
- * original was Fortran IV and somewhat obfuscated.   This version is a 
+ * C version of the HP1000 (and later HP3000) text adventure game.  The
+ * original was Fortran IV and somewhat obfuscated.   This version is a
  * nearly verbatim port of that one so it is almost as confusing (but
  * that's a good thing).
  *
@@ -19,9 +19,9 @@
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  *
- * This software is provided ``as is'' and any express or implied warranties, 
- * including, but not limited to, the implied warranties of merchantability 
- * and fitness for a particular purpose are disclaimed.  
+ * This software is provided ``as is'' and any express or implied warranties,
+ * including, but not limited to, the implied warranties of merchantability
+ * and fitness for a particular purpose are disclaimed.
  *
  * $Log: mansion.c,v $
  * Revision 1.8  2000/02/19 21:06:55  garnett
@@ -83,15 +83,15 @@ char IVRB[][16] = {
 	"RESTORE ", "DRINK   ", "MYSTERY ", "BRIBE   ", "QUESTION", "LISTEN  ",
 	"UNLOCK  ", "LOCK    ", "SHOOT   ", "OIL     ", "RECORD  ", "BREAK   ",
 	"PLACE   ", "SLEEP   ", "        ", "        ", "        ", "        ",
-	"        ", "        ", "        ", "        ", "        ", "        ",	
+	"        ", "        ", "        ", "        ", "        ", "        ",
 	"WALK    ", "PUT     ", "PICK    ", "        ", "        ", "        ",
 	"        ", "        ", "        ", "        ", "        ", "        ",
 	"        ", "        ", "        ", "        ", "        ", "        "
 };
 
 char *IRNM[] = {
-	"", 
-	"BUTLER'S ROOM    ", "FURNACE ROOM    ", 
+	"",
+	"BUTLER'S ROOM    ", "FURNACE ROOM    ",
 	"DARK PIT         ", "SECRET PASSAGE  ", "CREEPY CRYPT    ",
 	"WINE CELLAR      ", "STORAGE ROOM    ", "DAMP DUNGEON    ",
 	"FOOD CELLAR      ", "LIVING ROOM     ", "ENTRANCE HALL   ",
@@ -113,8 +113,8 @@ char *IRNM[] = {
 };
 /*
 char *IRNM[] = {
-	"", 
-	"BUTLER'S", "ROOM    ", "FURNACE ", "ROOM    ", 
+	"",
+	"BUTLER'S", "ROOM    ", "FURNACE ", "ROOM    ",
 	"DARK PIT", "        ", "SECRET P", "ASSAGE  ", "CREEPY C", "RYPT    ",
 	"WINE CEL", "LAR     ", "STORAGE ", "ROOM    ", "DAMP DUN", "GEON    ",
 	"FOOD CEL", "LAR     ", "LIVING R", "OOM     ", "ENTRANCE", " HALL   ",
@@ -155,8 +155,8 @@ char *IRSN[] = {
 	"HUNTER  ", "DWARF   ", "MASTER  ", "WOLF    ", "WARRIOR ", "        "
 };
 
-int IRES[] = { 
-	0, 
+int IRES[] = {
+	0,
 	19,424,911,43,300,894,763,525,718,0,
 	1870,996,330,920,71,0,0
 };
@@ -167,13 +167,13 @@ char *IPRP[] = {
 	"A       ", "WITH    ", "        ", "        ", "        ", "        "
 };
 
-char *IDTN[] = { 
-	"        ", "NORTH   ", "EAST    ", "SOUTH   ", "WEST    ", "UP      ", 
+char *IDTN[] = {
+	"        ", "NORTH   ", "EAST    ", "SOUTH   ", "WEST    ", "UP      ",
 	"DOWN    ", "BACKWARD", "LEFT    ", "FORWARD ", "RIGHT   ", "BACK    "
 };
 
 int IVEN[] = {
-	0, 
+	0,
 	0,121,220,493,1316,126,441,233,217,5218,9396,7312,
 	125,5308,295,520,152,105,1216,114,217,193,789,309,319,789,0,
 	1184,1214,312,118,394,202,17213,625,0,0,0,0,
@@ -184,7 +184,7 @@ int IVEN[] = {
 };
 
 int IXT[] = {
-            0,   
+            0,
 	  401,   502,   704, 20906,  1310,  1411,  9562,  1613, 11714,  1815,
 	 2219, 22320,  2421,  2522,  2623, 22724,   328,  3429,  2085, 24036,
 	 2831,  4342,  4645,  4647,  4849, 15417,  5554,  5856,  5100,  4600,
@@ -239,28 +239,28 @@ int ITST[] = {
 
 char *ITEM[] = {
 	"        ",
-	"RING    ", "KEYS    ", "CLOCK   ", "LANTERN ", "CROSS   ", 
-	"COMPASS ", "TREASURE", "BATTERY ", "GUN     ", "KNIFE   ", 
-	"AXE     ", "SWORD   ", "VIAL    ", "CLUB    ", "ROPE    ", 
-	"CHAIR   ", "AMULET  ", "TALISMAN", "CANDLE  ", "BULLET  ", 
-	"BOOK    ", "NOTE    ", "XMITTER ", "FOOD    ", "BROOM   ", 
-	"RECEIVER", "TORCH   ", "MAP     ", "WEDGE   ", "GLOBE   ", 
-	"MATCH   ", "SHOVEL  ", "OILCAN  ", "HATCHET ", "CHEST   ", 
-	"PEARLS  ", "EMERALD ", "COINS   ", "GOBLET  ", "DIAMONDS", 
-	"JEWELRY ", "NECKLACE", "CROWN   ", "DARTS   ", "SHIELD  ", 
-	"KEY     ", "BATTERY ", "GAUNTLET", "PARROT  ", "MACE    ", 
-	"        ", "        ", 
-	"CLOTHES ", "PADLOCK ", "POLICE  ", "OPERATOR", "FIREMEN ", 
-	"TAXI    ", "        ", "WINE    ", "POISON  ", "WATER   ", 
-	"MONKEY  ", "MIRROR  ", "DRAWING ", "CAVITY  ", "WOOD    ", 
-	"RAGS    ", "CRATE   ", "COFFIN  ", "POINTS  ", "PICTURE ", 
-	"PHONE   ", "HINGE   ", "RADIO   ", "LAMP    ", "WALL    ", 
-	"TREE    ", "TROLL   ", "STATUE  ", "FIGURINE", "IDOL    ", 
-	"BOULDERS", "ROCKS   ", "HOOK    ", "NEW     ", "OLD     ", 
-	"SCROLL  ", "FIRE    ", "PLAQUE  ", "CURTAIN ", "DOOR    ", 
-	"GATE    ", "QUEEN   ", "KING    ", "INDIANS ", "TABLE   ", 
-	"TABLES  ", "SHOWER  ", "FIGURINE", "BULL    ", "BARS    ", 
-	"DAGGER  ", "PRINTER ", "CASSETTE", "SILVER  ", "MANSION ", 
+	"RING    ", "KEYS    ", "CLOCK   ", "LANTERN ", "CROSS   ",
+	"COMPASS ", "TREASURE", "BATTERY ", "GUN     ", "KNIFE   ",
+	"AXE     ", "SWORD   ", "VIAL    ", "CLUB    ", "ROPE    ",
+	"CHAIR   ", "AMULET  ", "TALISMAN", "CANDLE  ", "BULLET  ",
+	"BOOK    ", "NOTE    ", "XMITTER ", "FOOD    ", "BROOM   ",
+	"RECEIVER", "TORCH   ", "MAP     ", "WEDGE   ", "GLOBE   ",
+	"MATCH   ", "SHOVEL  ", "OILCAN  ", "HATCHET ", "CHEST   ",
+	"PEARLS  ", "EMERALD ", "COINS   ", "GOBLET  ", "DIAMONDS",
+	"JEWELRY ", "NECKLACE", "CROWN   ", "DARTS   ", "SHIELD  ",
+	"KEY     ", "BATTERY ", "GAUNTLET", "PARROT  ", "MACE    ",
+	"        ", "        ",
+	"CLOTHES ", "PADLOCK ", "POLICE  ", "OPERATOR", "FIREMEN ",
+	"TAXI    ", "        ", "WINE    ", "POISON  ", "WATER   ",
+	"MONKEY  ", "MIRROR  ", "DRAWING ", "CAVITY  ", "WOOD    ",
+	"RAGS    ", "CRATE   ", "COFFIN  ", "POINTS  ", "PICTURE ",
+	"PHONE   ", "HINGE   ", "RADIO   ", "LAMP    ", "WALL    ",
+	"TREE    ", "TROLL   ", "STATUE  ", "FIGURINE", "IDOL    ",
+	"BOULDERS", "ROCKS   ", "HOOK    ", "NEW     ", "OLD     ",
+	"SCROLL  ", "FIRE    ", "PLAQUE  ", "CURTAIN ", "DOOR    ",
+	"GATE    ", "QUEEN   ", "KING    ", "INDIANS ", "TABLE   ",
+	"TABLES  ", "SHOWER  ", "FIGURINE", "BULL    ", "BARS    ",
+	"DAGGER  ", "PRINTER ", "CASSETTE", "SILVER  ", "MANSION ",
 	"AND     ", "CURTAINS", "CRAZY   ", "BOULDER ", "        ",
 	"        ", "        ", "        ", "        ", "        ",
 	"        ", "        ", "        ", "        ", "        ",
@@ -272,8 +272,8 @@ char *ITEM[] = {
 	"        ", "        "
 };
 
-int IVAL[] = { 
-	0, 
+int IVAL[] = {
+	0,
 	3,2,1,2,5,2,10,2,2,1,1,1,1,1,1,1,4,4,1,2,1,1,10,1,1,
 	10,1,1,1,4,1,1,1,1,10,10,10,10,10,10,10,10,10,2,5,1,1,10,5,1,0,0
 };
@@ -282,7 +282,7 @@ int IX, IR, IT, IBT;
 int IC, ID, IE;		/* more general-purpose vars     */
 int IPR[8];		/* more parameter-passing stuff  */
 int IRIT;		/* parameter-passing             */
-int IRB, IRX, IMZ[3], IXX;
+int IRB, IRX, IMZ[4], IXX;
 int IRC, ITS, ISC;
 int J1, J2;
 double RND, R1, RND1;
@@ -302,8 +302,7 @@ int IW63;
  * the current Time of Day in a six-double array.  Since MM only ever used
  * three of them, I don't know what the other two did.
  */
-void ourtime(ctod)
-	double ctod[];
+void ourtime(double ctod[])
 {
 	time_t tloc;            /* unsigned int current TOD */
 	struct tm *tmp;         /* time information pointer */
@@ -337,14 +336,14 @@ void ourtime(ctod)
 void pak(void)
 {
 #ifndef UNIX
-	printf("\n-- press a key to continue --"); 
+	printf("\n-- press a key to continue --");
 	fflush(stdout);
 	getchar();
 #else
 	return;
 #endif
 }
- 
+
 
 /*
 void piwrd(iwrd)
@@ -363,24 +362,22 @@ void piwrd(iwrd)
 	w5 = ((iwrd[i][5] >= ' ') && (iwrd[i][5] <= '~')) ? iwrd[i][5] : '*';
 	w6 = ((iwrd[i][6] >= ' ') && (iwrd[i][6] <= '~')) ? iwrd[i][6] : '*';
 	w7 = ((iwrd[i][7] >= ' ') && (iwrd[i][7] <= '~')) ? iwrd[i][7] : '*';
-		printf("IWRD[%02d]==[%c%c%c%c%c%c%c%c] %d %3d %d\n", i, 
-			w0, w1, w2, w3, w4, w5, w6, w7, iwrd[i][8], 
+		printf("IWRD[%02d]==[%c%c%c%c%c%c%c%c] %d %3d %d\n", i,
+			w0, w1, w2, w3, w4, w5, w6, w7, iwrd[i][8],
 			iwrd[i][9], iwrd[i][10]);
 	}
 	fflush(stdout);
 }
 */
 
-void MMRI(IV, IRS)
-	int IV;
-	int IRS;
+void MMRI(int IV, int IRS)
 {
 	int J;
 
 	IR=ITST[1];
 	IC=0;
 	for (J=1; J<=53; J++) {
-		if ((IV == 1) && ((IVEN[J] > 10000) || 
+		if ((IV == 1) && ((IVEN[J] > 10000) ||
 		    ((IVEN[J]-100*(IVEN[J]/100)) != IR))) continue;
 		if ((IV == 2) && (IVEN[J] < 20000)) continue;
 		if ((IV == 4) && (IRS != J)) continue;
@@ -413,18 +410,18 @@ void MMRI(IV, IRS)
 		if (J == 10) printf("\nA BUTCHER KNIFE  ");
 		if (J == 11) printf("\nA TWO BLADED AXE ");
 		if (J == 12) printf("\nA SWORD          ");
-		if ((J == 13) && (ITST[10] != 13)) 
+		if ((J == 13) && (ITST[10] != 13))
 			printf("\nA VIAL OF POISON ");
-		if ((J == 13) && (ITST[10] == 13)) 
+		if ((J == 13) && (ITST[10] == 13))
 			printf("\nAN EMPTY VIAL    ");
 		if (J == 14) printf("\nA CLUB           ");
 		if (J == 15) printf("\nA COIL OF ROPE   ");
 		if (J == 16) printf("\nA DESK CHAIR     ");
 		if (J == 17) printf("\nAN UNEVEN AMULET ");
 		if (J == 18) printf("\nAN OLD TALISMAN  ");
-		if ((J == 19) && (IFD(IVEN[19]) == 1)) 
+		if ((J == 19) && (IFD(IVEN[19]) == 1))
 			printf("\nA LIT CANDLE     ");
-		if ((J == 19) && (IFD(IVEN[19]) != 1)) 
+		if ((J == 19) && (IFD(IVEN[19]) != 1))
 			printf("\nA CANDLE         ");
 		if (J == 20) printf("\nA SILVER BULLET  ");
 		if (J == 21) printf("\nA BOOK           ");
@@ -433,9 +430,9 @@ void MMRI(IV, IRS)
 		if (J == 24) printf("\nSOME FOOD        ");
 		if (J == 25) printf("\nA WITCH'S BROOM  ");
 		if (J == 26) printf("\nA MATTER RECEIVER");
-		if ((J == 27) && (IFD(IVEN[27]) == 1)) 
+		if ((J == 27) && (IFD(IVEN[27]) == 1))
 			printf("\nA BURNING TORCH  ");
-		if ((J == 27) && (IFD(IVEN[27]) != 1)) 
+		if ((J == 27) && (IFD(IVEN[27]) != 1))
 			printf("\nA USELESS TORCH  ");
 		if (J == 28) printf("\nA SMALL ROAD MAP ");
 		if (J == 29) printf("\nA WOODEN WEDGE   ");
@@ -484,7 +481,7 @@ int main(int argc, char **argv)
 	int IM;			/* mystery number                */
 	int INUM=0;		/* number of input-words         */
 	int IANS;		/* for yes/no answers            */
-	int ITR, IEF;	
+	int ITR, IEF;
 	int IFC=0, IDN, IDE, IDS, IDW;
 	int IW52, IW62, IW71;
 	int ITST5;
@@ -493,7 +490,7 @@ int main(int argc, char **argv)
 	double ITIM[6];		/* time for randomizing          */
 	double tmp;
 	double RNX;
-	char IWP[8];		
+	char IWP[8];
 	int IWRD[16][16];	/* input-word array              */
 	char buf[92];		/* input buffers                 */
 	char *p, *MSG;		/* string pointer for the parser */
@@ -504,7 +501,7 @@ int main(int argc, char **argv)
 	setvbuf(stdout, (char*)NULL, _IONBF, 0);
 	RND = 2;
 MMSA:
-	if (RND != 2) 
+	if (RND != 2)
 		goto MMSA_1000;
 
 	ourtime(ITIM);
@@ -543,7 +540,7 @@ MMSA:
 MMSA_1000:
 	RND = RND*7.7 - (int)(RND*7.7);
 	IC  = (int)(RND*77)+1;
-	if (((IC > 9) && (IC < 19)) || ((IC > 27) && (IC < 54))) 
+	if (((IC > 9) && (IC < 19)) || ((IC > 27) && (IC < 54)))
 		goto MMSA_1000;
 
 	fflush(stdout);
@@ -630,7 +627,7 @@ MMSA_2000:
 	IWRD[2][3]='W';
 	IWRD[2][4]='O';
 	IWRD[2][5]='H';
-		
+
 	for (I=1; I<=2; I++) {
 		RND=RND*7.7-(int)(RND*7.7);
 		for (J=1; J<=(int)(RND*10)+5; J++) {
@@ -731,8 +728,8 @@ MMSA_3800:
 
 MMSB:
 	putchar('\n');
-	for (I=0; I<16; I++) 
-		for (J=1; J<16; J++) 
+	for (I=0; I<16; I++)
+		for (J=1; J<16; J++)
 			IWRD[I][J] = ' ';
 	memset(buf, ' ', sizeof(buf));
 	putchar('\n');
@@ -740,7 +737,7 @@ MMSB:
 
 	/*
 	 * This stuff is not in the original, but it's needed for the C vers.
-	 * First point to the 1st element of the input buffer, 
+	 * First point to the 1st element of the input buffer,
 	 * so that input will start from there.
 	 */
 	cin  = 0;
@@ -761,10 +758,10 @@ MMSB:
 		if (++cin == 72)
 			break;
 		p++;
-	} 
-	/* 
-	 * Catch EOF from the input, treat it like an attempt to quit. Is 
-	 * this wise? 
+	}
+	/*
+	 * Catch EOF from the input, treat it like an attempt to quit. Is
+	 * this wise?
 	 */
 	if (feof(stdin)) {
 		clearerr(stdin);
@@ -772,7 +769,7 @@ MMSB:
 	}
 	MSG = buf;
 	/*
-	 * Transform the newline into a space 
+	 * Transform the newline into a space
 	 */
 	*p = ' ';
 
@@ -788,7 +785,7 @@ MMSB:
 			if ((MSG[IC] == ' ') && (MSG[IC+1] == ' '))
 				goto MMSB_80;
 			/* space == end of word */
-			if (MSG[IC] == ' ') 
+			if (MSG[IC] == ' ')
 				break;
 		}
 		/* more than 8 chars == word is too long */
@@ -821,7 +818,7 @@ MMSB_80:
 					goto MMSB_169;
 			}
 		}
-	
+
 		for (K=1; K<=11; K++) {
 			IC=0;
 			for (J=0; J<8; J++) {
@@ -835,7 +832,7 @@ MMSB_80:
 		}
 
 		for (K=1; K<=149; K++) {
-			IC=0;	
+			IC=0;
 			for (J=0; J<8; J++) {
 				if (IWRD[I][J] == ITEM[K][J])
 					IC++;
@@ -845,7 +842,7 @@ MMSB_80:
 					goto MMSB_169;
 			}
 		}
-	
+
 		for (K=1; K<=17; K++) {
 			IC=0;
 			for (J=0; J<8; J++) {
@@ -857,7 +854,7 @@ MMSB_80:
 					goto MMSB_169;
 			}
 		}
-	
+
 		for (K=1; K<=17; K++) {
 			IC=0;
 			for (J=0; J<8; J++) {
@@ -917,7 +914,7 @@ MMSB_169:
 		IPR[3] = 0;
 		goto MMSD;
 	}
-	
+
 	if ((IWRD[0][9] == 19) && (IWRD[1][9] == 19))
 		goto MMSB_9999;
 	if (((IWRD[1][8] == 1) || (IWRD[2][8]==1) || (IWRD[3][8] == 1) ||
@@ -943,7 +940,7 @@ MMSB_169:
 		if ((IWRD[I][9] == 106) && (IWRD[I+1][9] == 20)) goto MMSB_172;
 		if ((IWRD[I][9] == 106) && (IWRD[I+1][9] == 5)) goto MMSB_172;
 		if ((IWRD[I][9] == 106) && (IWRD[I+1][9] == 39)) goto MMSB_172;
-		if ((IWRD[I][9] == 87) && (IWRD[I+1][9] == 8)) 
+		if ((IWRD[I][9] == 87) && (IWRD[I+1][9] == 8))
 			IWRD[I+1][9]=47;
 		if ((IWRD[I][9] == 87) && (IWRD[I+1][9] == 47)) goto MMSB_172;
 		continue;
@@ -961,7 +958,7 @@ MMSB_172:
 			for (K=0; K<10; K++) {
 				IWRD[J][K] = IWRD[J+1][K];
 				if (J == 7) IWRD[J+1][K]=0;
-			}	
+			}
 		}
 		I -= 1;
 	}
@@ -995,7 +992,7 @@ MMSB_171:
 	if ((IC - ITST[18]) < 0) ITST[18] = 0;
 	if (ITST[5] > 1) ITST[5] = ITST[5] + (IC - ITST[18])/10;
 	ITST5 = ITST[5];
-	if (((IC - ITST[18]) >= 10) && (IFSD(ITST[5]) == 95)) 
+	if (((IC - ITST[18]) >= 10) && (IFSD(ITST[5]) == 95))
 		printf("\nYOU ARE TAKING TOO LONG.");
 	ITST[18] = IC;
 	if ((ITST[1] == 46) && ((IWRD[0][9] != 1) || (IWRD[1][9] != 11) ||
@@ -1019,7 +1016,7 @@ MMSB_171:
 MMSB_174:
 	if (IC > 12) IC -= 12;
 	if (IC > 12) goto MMSB_174;
-	if ((IC != 0) && ((IR < 28) || (IR > 53))) 
+	if ((IC != 0) && ((IR < 28) || (IR > 53)))
 		printf("\n\nTHE TOWER BELL RANG %d TIMES\n", IC);
 	IC = ITST5 - (ITST5/25)*25;
 	if ((IC == 13) && (IWRD[0][9] != 20) && (IWRD[1][9] != 40))
@@ -1040,7 +1037,7 @@ MMSB_174:
 	if ((ITST[8] == 0) && (IC == 5) && (IRES[ITST[9]] != 0)) IVEN[73]=322;
 	if ((ITD(IVEN[4]) == 4) && (IR == 11)) IVEN[73]=422;
 MMSB_194:
-	if ((IFSD(IVEN[73]) == 22) && (IR > 9) && (IR < 19) && 
+	if ((IFSD(IVEN[73]) == 22) && (IR > 9) && (IR < 19) &&
 	    (IWRD[0][9] != 42) && (IWRD[0][9] != 40))
 		printf("\n\nYOU HEARD A PHONE RING\n");
 	if (IVEN[73] != 11) IVEN[73] += 1000;
@@ -1090,7 +1087,7 @@ MMSB_204:
 		goto MMSB_210;
 	}
 	tmp = ((double)(IBT))/5.0;
-	if (tmp == floor(tmp)) 
+	if (tmp == floor(tmp))
 		printf("\nTHE BATTERY IN YOUR LANTERN IS GETTING WEAK");
 MMSB_210:
 	if (IFD(IVEN[19] == 0)) goto MMSB_220;
@@ -1099,9 +1096,9 @@ MMSB_210:
 	if (IBT < 20) goto MMSB_220;
 	if ((IBT == 20) && (IVEN[19] == 1216)) ITST[6] -= 20000;
 	if (IBT == 32) ITST[6] -= 32000;
-	if ((IBT == 29) && (IVEN[19] > 20000)) 
+	if ((IBT == 29) && (IVEN[19] > 20000))
 		printf("\nYOUR CANDLE IS BURNING LOW");
-	if ((IBT == 32) && (IVEN[19] > 20000)) 
+	if ((IBT == 32) && (IVEN[19] > 20000))
 		printf("\nYOUR CANDLE BURNED OUT");
 	if (IBT == 32) IVEN[19] = 1216;
 MMSB_220:
@@ -1180,7 +1177,7 @@ MMSB_250:
 MMSB_253:
 	if ((IR == 92) && (IRES[16] == 0)) IRES[16]=995;
 	R=RN(R);
-	if ((IFSD(IRES[16]) != IR) || (IRES[16] > 1999) || 
+	if ((IFSD(IRES[16]) != IR) || (IRES[16] > 1999) ||
 	    ((IWRD[0][9] != 22) && (R > 0.33))) goto MMSB_260;
 	IWRD[0][10] = 2;
 	IWRD[0][9] = 46;
@@ -1236,14 +1233,14 @@ MMSB_266:
 MMSB_270:
 	if ((IRES[ITST[39]] > 10000) || (IRES[ITST[39]] == 0) ||
 	    (ITST[5] < 300)) goto MMSB_280;
-	if ((IROM[IFSD(IRES[ITST[39]])] < 20000) && 
+	if ((IROM[IFSD(IRES[ITST[39]])] < 20000) &&
 	    (IFSD(IRES[ITST[39]]) < 54)) goto MMSB_280;
 	IRES[10]=IRES[ITST[39]];
 	IRES[ITST[39]]=0;
 	if (IR == IFSD(IRES[10])) {
 		printf("\nIN A MATTER OF SECONDS AND BEFORE YOU CAN DO "
 			"ANYTHING, THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IRSN[ITST[39]][L]);
 		printf("\nGROWS HAIR, FANGS AND CLAWS GROTESQUELY "
 			"AND TRANSFORMS INTO A WEREWOLF.");
@@ -1264,7 +1261,7 @@ MMSB_280:
 		IPR[3]=ID;
 		goto MMSD;
 	}
-	if ((IR == 52) && (IFSD(IRES[4]) == 52)) IXT[258]=0;	
+	if ((IR == 52) && (IFSD(IRES[4]) == 52)) IXT[258]=0;
 	if ((IVEN[53] > 20000) || (IR == 1) || (IR == 20) || (IR == 25))
 		goto MMSB_295;
 	for (I=2; I<17; I++) {
@@ -1277,14 +1274,14 @@ MMSB_280:
 		goto MMSB_295;
 	}
 MMSB_295:
-	if ((IWRD[0][9] == 21) || (IWRD[0][9] == 22) || 
+	if ((IWRD[0][9] == 21) || (IWRD[0][9] == 22) ||
 	    (IWRD[0][9] == 24) || (IWRD[0][9] == 25) ||
 	    (IWRD[0][9] == 26) || (IWRD[0][9] == 27)) {
 		MMRLret=0;
 		goto MMRL;
 	}
 RLret0:
-	
+
 	IWRD[0][10] = INUM;
 	if ((INUM == 1) && (IWRD[0][9] == 25)) goto MMSC;
 	if (IWRD[0][9] < 18) goto MMSC;
@@ -1340,9 +1337,9 @@ MMSC_330:
 		IPR[3]=0;
 		goto MMSD;
 	}
-	if ((IVEN[15] < 20000) || (IWRD[1][9] != 77) || 
+	if ((IVEN[15] < 20000) || (IWRD[1][9] != 77) ||
 	    ((IR != 93) && (IR != 94) && (IR != 95) && (IR != 96) &&
-	     (IR != 70) && (IR != 66) && (IR != 67) && (IR != 92))) 
+	     (IR != 70) && (IR != 66) && (IR != 67) && (IR != 92)))
 		goto MMSC_335;
 	IRB=ITST[1];
 	ITST[14]=IRB;
@@ -1357,14 +1354,14 @@ MMSC_330:
 	ITST[1]=IR;
 	goto MMSC_1141;
 MMSC_335:
-	if ((IWRD[1][9] == 77) && 
+	if ((IWRD[1][9] == 77) &&
 	    ((IR == 66) || (IR == 67) || (IR == 70) || (IR == 92) ||
 	     (IR == 93) || (IR == 94) || (IR == 95) || (IR == 96))) {
 		IPR[2]=340;
 		IPR[3]=0;
 		goto MMSD;
 	}
-	
+
 	if (IWRD[1][9] == 77) {
 		IPR[2]=350;
 		IPR[3]=0;
@@ -1444,7 +1441,7 @@ MMSC_700:
 		"DISAPPEARS\n");
 	goto MMSC_1141;
 MMSC_800:
-	if (((IWRD[0][9] == 5) && (IVEN[88] != 17)) || 
+	if (((IWRD[0][9] == 5) && (IVEN[88] != 17)) ||
 	    ((IWRD[0][9] == 6) && (IVEN[88] != 117)) ||
 	    ((IWRD[0][9] == 9) && (IVEN[88] != 217)) ||
 	    ((IWRD[0][9] == 10) && (IVEN[88] != 317))) {
@@ -1483,7 +1480,7 @@ MMSC_900:
 		goto MMSD;
 	}
 	R = RN(R);
-	if ((IR < 62) || ((IR > 80) && (IR < 97)) || 
+	if ((IR < 62) || ((IR > 80) && (IR < 97)) ||
 	    ((IR > 55) && (IR < 78)) || (R < 0.667)) {
 		IPR[2]=1040;
 		IPR[3]=0;
@@ -1597,13 +1594,13 @@ MMSC_1007:
 MMSC_1015:
 	if ((J != 93) && (J != 212) && (J != 281) && (J != 351)) goto MMSC_1020;
 	if (IR < 88) goto MMSC_1020;
-	for (K=1; K<=53; K++) 
+	for (K=1; K<=53; K++)
 		if ((IVEN[K] > 20000) && ((J == 281) || (ITD(IVEN[K] > 1)))) {
 			IPR[2]=1017;
 			IPR[3]=0;
 			goto MMSD;
 		}
-	
+
 MMSC_1020:
 	if (((IR < 55) || (IR == 90)) && (IXT[J] > 20000)) {
 		IPR[2]=1021;
@@ -1648,7 +1645,7 @@ MMSC_1025:
 	}
 	if ((IVEN[22]==0) && ((ITST[5]-(ITST[5]/50)*50) < 10) && (IR != 35))
 		IVEN[22] = 100+IR;
-	if ((IVEN[22] != 0) && (IVEN[22] < 20000) && 
+	if ((IVEN[22] != 0) && (IVEN[22] < 20000) &&
 	    ((ITST[5]-(ITST[5]/50)*50) > 40) && (IFSD(IVEN[22]) != IR))
 		IVEN[22]=0;
 	if ((((IR != 97) && (IR != 98)) || (IWRD[0][9] == 25))) goto MMSC_1045;
@@ -1712,11 +1709,11 @@ MMSC_1045:
 	}
 	RND=RND*7.7-(int)(RND*7.7);
 	IX=(int)(360*RND+1);
-	
+
 	for (J=IX; J<=360; J++) {
 		if ((IXT[J] < 4100) || (IFSD(IXT[J]) != 0)) continue;
-		if ( (((IMZ[1]-1)/60) == ((J-1)/60)) || 
-		     (((IMZ[2]-1)/60) == ((J-1)/60)) || 
+		if ( (((IMZ[1]-1)/60) == ((J-1)/60)) ||
+		     (((IMZ[2]-1)/60) == ((J-1)/60)) ||
 		     (((IMZ[3]-1)/60) == ((J-1)/60)) ) continue;
 		IXX=IXT[J];
 		IXT[J]=IXT[I];
@@ -1726,8 +1723,8 @@ MMSC_1045:
 	for (J=1; J<=IX; J++) {
 		if ((IXT[J] < 4100) || (IFSD(J) != 0)) continue;
 		for (K=1; K<=3; K++) {
-			if ( (((IMZ[1]-1)/60) == ((J-1)/60)) || 
-			     (((IMZ[2]-1)/60) == ((J-1)/60)) || 
+			if ( (((IMZ[1]-1)/60) == ((J-1)/60)) ||
+			     (((IMZ[2]-1)/60) == ((J-1)/60)) ||
 			     (((IMZ[3]-1)/60) == ((J-1)/60)) ) continue;
 			IXX=IXT[J];
 			IXT[J]=IXT[I];
@@ -1747,7 +1744,7 @@ MMSC_1075:
 	IXT[J]=100*(IXT[J]/100);
 MMSC_1080:
 	if ((IR > 35) && (IR < 41)) ITST[12]=ITST[12]-ITST[5]+ITST[13];
-	if ((IR > 35) && (IR < 41) && (ITST[12] > 0)) 
+	if ((IR > 35) && (IR < 41) && (ITST[12] > 0))
 		printf("\nTHE CORRIDOR WALLS ARE CLOSING IN\n");
 	if ((IR > 35) && (IR < 40) && (IVEN[17] > 20000) &&
 	    (ITST[12] <= 0)) {
@@ -1772,9 +1769,9 @@ MMSC_1080:
 	if (IR == 4) IXT[314]=3940;
 	if ((ITST[5] <= 300) || (IR < 55) || (IR > 82)) goto MMSC_1097;
 	R=RN(R);
-	if ((R > 0.5) && (R < 0.8)) 
+	if ((R > 0.5) && (R < 0.8))
 		printf("\nYOU JUST NOTICED A SNAKE SLITHER BY.");
-	if ((R > 0.8) && (R < 0.95)) 
+	if ((R > 0.8) && (R < 0.95))
 		printf("\nYOU WERE JUST BITTEN BY A SNAKE THAT RACED BY.");
 	if (R > 0.95) {
 		IPR[2]=1093;
@@ -1815,7 +1812,7 @@ MMSC_1097:
 	if (ITST[17] == 2) IXT[47]=3535;
 	IC = 100-ITST[17]/10;
 	ID = ITST[17]/10;
-	if ((IR == 35) && ((ID - floor(ID)) == 0) && (ITST[5] < 300)) 
+	if ((IR == 35) && ((ID - floor(ID)) == 0) && (ITST[5] < 300))
 		printf("\nYOU PASSED A MILEAGE SIGN THAT READ: BIG CITY %d   "
 			"MYSTERY MANSION %d\n", IC, ID);
 	if ((IFD(IVEN[35]) == 2) && (ITD(IVEN[35]) == 6)) {
@@ -1843,10 +1840,10 @@ MMSC_1120:
 		IRC=IRB;
 MMSC_1130:
 		IC=IRES[J]-(IRES[J]/100)*100;
-		if (((J == 3) || (J == 14)) && ((IC ==26) && 
+		if (((J == 3) || (J == 14)) && ((IC ==26) &&
 		   (((ITST[5] < 400) || (IFSD(J) != IR)) || (IC == 0))))
 			IRES[J]=100*(IRES[J]/100)+IRC;
-		if ((J == 4) && ((IC > 51) || (IC < 43))) 
+		if ((J == 4) && ((IC > 51) || (IC < 43)))
 			IRES[4]=100*(IRES[4]/100)+IRC;
 		if ((J == 5) && ((IC == 16) || ((IROM[IC] >= 20000) &&
 		    (ITST[5] < 300)) || (IC > 27) || (IC  == 21)))
@@ -1855,25 +1852,25 @@ MMSC_1130:
 			IRES[J]=100*(IRES[J]/100)+IRC;
 		if (((J == 8) || (J == 2)) && ((IC < 9) || (IC > 77)))
 			IRES[J]=100*(IRES[J]/100)+IRC;
-		if (((J == 9) || (J == 7)) && 
+		if (((J == 9) || (J == 7)) &&
 		   (((IC > 18) && (IC < 54)) || (IC > 77)))
 			IRES[J]=100*(IRES[J]/100)+IRC;
 		if ((J == 10) && ((IC == 98) || (IC == 78) || (IC == 80) ||
 		    (IC == 88) || (IC == 83) || (IC == 0)))
 			IRES[10]=100*(IRES[10]/100)+IRC;
-		if ((J == 13) && ((IC < 29) || (IC > 31))) 
-			IRES[13]=100*(IRES[13]/100)+IRC;		
-		if ((J == 11) && ((IC < 55) || (IC > 77))) 
-			IRES[11]=100*(IRES[11]/100)+IRC;		
-		if ((J == 16) && ((IC < 93) || (IC > 96))) 
-			IRES[16]=100*(IRES[16]/100)+IRC;		
+		if ((J == 13) && ((IC < 29) || (IC > 31)))
+			IRES[13]=100*(IRES[13]/100)+IRC;
+		if ((J == 11) && ((IC < 55) || (IC > 77)))
+			IRES[11]=100*(IRES[11]/100)+IRC;
+		if ((J == 16) && ((IC < 93) || (IC > 96)))
+			IRES[16]=100*(IRES[16]/100)+IRC;
 	}
 MMSC_1141:
 	ITST[13]=ITST[5];
 	if (IWRD[0][9] == 13) IR=IFSD(IRES[IWRD[1][9]]);
 	ITST[1]=IR;
 	if ((IR == ITST[8]) && (IFSD(IRES[ITST[9]]) == IR) &&
-	    ( (IVEN[ITST[10]] > 20000) || 
+	    ( (IVEN[ITST[10]] > 20000) ||
               ((IFSD(IVEN[ITST[10]]) == IR) &&
 	       (IVEN[ITST[10]] < 10000)))) {
 		IPR[2]=1145;
@@ -1885,9 +1882,9 @@ MMSC_1142:
 		if (I == 1) K=4;
 		if (I == 2) K=19;
 		if (I == 3) K=27;
-		if ((IFD(IVEN[K]) == 1) && 
-		    (((IVEN[K] < 10000) && (IFSD(IVEN[K]) == IR)) || 
-		     (IVEN[K] > 20000) || 
+		if ((IFD(IVEN[K]) == 1) &&
+		    (((IVEN[K] < 10000) && (IFSD(IVEN[K]) == IR)) ||
+		     (IVEN[K] > 20000) ||
 		     ((IVEN[K] > 10000) && (IVEN[K] < 20000) &&
 		      (IFSD(IRES[IVEN[K]]) == IR)))) goto MMSC_1190;
 	}
@@ -1927,7 +1924,7 @@ MMSC_1190:
 	if (((IR >= 73) && (IR <= 77)) || (IR == 99)) IC=3;
 	if (((IR >= 55) && (IR <= 57)) || (IR == 93) || (IR == 95)) IC=4;
 	printf("\nYOU ARE %c%c THE ", IPRP[IC][0], IPRP[IC][1]);
-	for (L=0; L<16; L++) 
+	for (L=0; L<16; L++)
 		putchar(IRNM[IFSD(IROM[IR])][L]);
 	if ((IVEN[19] > 21000) && ((IR == 21) || (IR == 36) ||
 	    (IR == 54) || (IR == 92))) {
@@ -1967,7 +1964,7 @@ MMSC_1585:
 		if (J1 < 7) J1=J1+4;
 MMSC_1590:
 		printf("\n\nTHERE IS A WAY TO GO ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IDTN[J1][L]);
 		goto MMSC_1620;
 	}
@@ -1998,7 +1995,7 @@ MMSD:
 	if ((ITD(IRES[5]) != 1) && (ITST[5] > 300))ITST[3]=ITST[3]-75;
 	if (IRIT == 6005) goto MMSD_80000;
 
-	if (IRIT == 110) 
+	if (IRIT == 110)
 		printf("\nYOU CLUMSY FOOL! YOU TRIPPED "
 			"AND DROPPED EVERYTHING.");
 	if (IRIT == 150)
@@ -2010,9 +2007,9 @@ MMSD:
 		for (L=0; L<8; L++)
 			putchar(IWRD[IPR[3]][L]);
 	}
-	if (IRIT == 165) 
+	if (IRIT == 165)
 		printf("\nWATCH YOUR LANGUAGE!");
-	if (IRIT == 166) 
+	if (IRIT == 166)
 		printf("\nI WILL NOT ANSWER ANY QUESTIONS. I ONLY RESPOND "
 			"TO YOUR ACTIONS.");
 	if (IRIT == 176) {
@@ -2020,7 +2017,7 @@ MMSD:
 			"DROWNED.\nYOU SHOULD HAVE GONE BACK WHILE YOU COULD.");
 		goto MMSD_80000;
 	}
-	if (IRIT == 180) 
+	if (IRIT == 180)
 		printf("\nI EXPECT TO SEE A VERB AS THE FIRST WORD");
 
 	if (IRIT != 185) goto MMSD_187;
@@ -2028,7 +2025,7 @@ MMSD:
 		"THE PASSAGES UNDER\nTHE MANSION AND GROUNDS HAVE CAVED-IN."
 		"YOU ARE BADLY SHAKEN AND THERE IS\nDESTRUCTION ALL AROUND "
 		"YOU. YOU CAN SMELL SMOKE.");
-	for (J=301; J<=360; J++) 
+	for (J=301; J<=360; J++)
 		IXT[J]=0;
 	IXT[173]=0;
 	IXT[26]=0;
@@ -2044,9 +2041,9 @@ MMSD_187:
 			"MANSION GOES UP IN SMOKE.");
 		goto MMSD_90020;
 	}
-	if (IRIT == 1017) 
+	if (IRIT == 1017)
 		printf("\nYOU CANNOT QUITE GET THROUGH THE SMALL DOOR.");
-	if (IRIT == 1027) 
+	if (IRIT == 1027)
 		printf("\nYOU ENTERED A TUNNEL FILLED OVER YOUR HEAD WITH THE "
 			"WATER RUSHING\nIN FROM THE PRESSURE OF THE INCOMING "
 			"TIDE.");
@@ -2056,7 +2053,7 @@ MMSD_187:
 			"ARE CRAWLING ALL OVER YOUR DEAD BODY.");
 		goto MMSD_80000;
 	}
-	
+
 	if (IRIT != 191) goto MMSD_1199;
 	printf("\nYOU HAVE BEATEN THE ODDS AND HAVE DONE THE IMPOSSIBLE. "
 		"YOU HAVE SURVIVED\nMYSTERY MANSION AND YOU CAN NOW SEE IT "
@@ -2064,7 +2061,7 @@ MMSD_187:
 	IC=0;
 	for (I=1; I<=52; I++)
 		if (IVEN[I] > 20000) IC += IVAL[I];
-	
+
 	printf("\nYOUR SCORE INCLUDES %d POINTS FOR THE ITEMS YOU HAVE "
 		"WITH YOU.", IC);
 	ITST[2] += IC;
@@ -2080,7 +2077,7 @@ MMSD_187:
 	goto MMSD_90020;
 
 MMSD_1199:
-	if (IRIT == 190) 
+	if (IRIT == 190)
 		printf("\nI CANNOT DECIPHER TWO VERB TYPE WORDS IN ONE "
 			"SENTENCE");
 	if (IRIT == 192) {
@@ -2115,42 +2112,42 @@ MMSD_1199:
 		printf("\nTHE WEREWOLF HAS ATTACKED YOU AND TORN YOU TO BITS.");
 		goto MMSD_80000;
 	}
-	if (IRIT == 287) 
+	if (IRIT == 287)
 		printf("\nTHERE ARE %d SCREAMING DEMONS IN THE WAY.", IPR[3]);
-	if (IRIT == 290) 
+	if (IRIT == 290)
 		printf("\nABSOLUTELY NOTHING HAPPENS!");
-	if (IRIT == 320) 
+	if (IRIT == 320)
 		printf("\nI CANNOT FIGURE OUT WHAT YOU ARE TRYING TO SAY");
-	if (IRIT == 340) 
+	if (IRIT == 340)
 		printf("\nTHE WALL IS TOO HIGH");
-	if (IRIT == 350) 
+	if (IRIT == 350)
 		printf("\nI DON'T SEE A WALL AROUND HERE");
-	if (IRIT == 360) 
+	if (IRIT == 360)
 		printf("\nYOU HAVE TO BE IN THE WOODS TO CLIMB TREES");
-	if (IRIT == 370) 
+	if (IRIT == 370)
 		printf("\nYOU WOULD PROBABLY JUST FALL OUT OF THE TREE. I "
 			"LOSE MORE PLAYERS\nLIKE THAT. SO I CANNOT LET YOU "
 			"CLIMB ANY TREES.");
-	if (IRIT == 380) 
+	if (IRIT == 380)
 		printf("\nTHE GARDENER HAS CAUGHT YOU AND FORCEFULLY, HAS "
 			"TAKEN YOU\nTO THE VERANDA AND HAS TOLD YOU TO "
 			"LEAVE IF YOU ARE GOING TO ACT\nLIKE THAT");
-	if (IRIT == 385) 
+	if (IRIT == 385)
 		printf("\nTHE GATE IS COVERED WITH ALL KINDS OF POINTS AND "
 			"BARBS AND YOU\nWOULD NEVER MAKE IT OVER ALIVE.");
-	if (IRIT == 390) 
+	if (IRIT == 390)
 		printf("\nYOU ARE NOT BY THE GATE.");
-	if (IRIT == 410) 
+	if (IRIT == 410)
 		printf("\nI DIDN'T EXPECT YOU WOULD USE ENTER HERE.");
-	if (IRIT == 510) 
+	if (IRIT == 510)
 		printf("\nYOU ARE SUDDENLY SURROUNDED BY SMOKE AND WHEN IT "
 			"CLEARS YOU SEE\nTHAT YOU ARE ON THE VERANDA");
-	if (IRIT == 520) 
+	if (IRIT == 520)
 		printf("\nNOTHING HAPPENS");
-	if (IRIT == 610) 
+	if (IRIT == 610)
 		printf("\nYOU ARE SUDDENLY SURROUNDED BY SMOKE AND WHEN IT "
 			"CLEARS YOU SEE\nTHAT YOU ARE IN THE WOODS");
-	if (IRIT == 710) 
+	if (IRIT == 710)
 		printf("\nYOU ARE SUDDENLY SURROUNDED BY SMOKE AND WHEN IT "
 			"CLEARS YOU SEE\nTHAT YOU ARE ON A BRIDGE");
 	if (IRIT == 810) {
@@ -2162,9 +2159,9 @@ MMSD_1199:
 		for (L=0; L<16; L++)
 			putchar(IRNM[IROM[ITST[8]]][L]);
 		printf("\nAND THAT THE MURDER WEAPON IS THE %s", IWP);
-	
+
 	}
-	if (IRIT == 910) 
+	if (IRIT == 910)
 		printf("\nYOU CANNOT DIG HERE.");
 	if (IRIT == 920)
 		printf("\nYOU WON'T GET VERY FAR WITHOUT A SHOVEL.");
@@ -2176,16 +2173,16 @@ MMSD_1199:
 	}
 	if (IRIT == 980) {
 		printf("\nFIRST YOU HAVE TO FIND THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IRSN[(int)(IWRD[1][9])][L]);
 	}
-	if (IRIT == 1002) 
+	if (IRIT == 1002)
 		printf("\nI FORGOT WHERE YOU WERE");
-	if (IRIT == 1005) 
+	if (IRIT == 1005)
 		printf("\nYOU NEED A COMPASS TO TELL CARDINAL POINTS HERE");
-	if (IRIT == 1021) 
+	if (IRIT == 1021)
 		printf("\nTHE DOOR IS LOCKED");
-	if (IRIT == 1023) 
+	if (IRIT == 1023)
 		printf("\nTHE GATE IS CLOSED");
 	if (IRIT == 1026) {
 		printf("\nYOU JUST FELL DOWN THE 500 FOOT CLIFF ONTO THE "
@@ -2197,11 +2194,11 @@ MMSD_1199:
 	if (IRIT == 1040)
 		printf("\nOKAY.");
 	if (IRIT == 1050) {
-		printf("\nYOU CANNOT GO "); 
-		for (L=0; L<8; L++) 
+		printf("\nYOU CANNOT GO ");
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 1065) 
+	if (IRIT == 1065)
 		printf("\nPROGRAM ERROR AT LINE %d", IPR[3]);
 	if (IRIT == 1084) {
 		printf("\nTHE AMULET SAVED YOU FROM BEING CRUSHED "
@@ -2219,7 +2216,7 @@ MMSD_1199:
 		goto MMSD_80000;
 	}
 	if (IRIT == 1096) {
-		printf("\nTHE WOLF ATTACKED YOU AND IS BUSY EATING YOUR FOOD");	
+		printf("\nTHE WOLF ATTACKED YOU AND IS BUSY EATING YOUR FOOD");
 		IVEN[24]=0;
 		IRES[15]=ITST[1];
 	}
@@ -2227,14 +2224,14 @@ MMSD_1199:
 		printf("\nTHE WOLF ATTACKED YOU RAVENOUSLY AND KILLED YOU");
 		goto MMSD_80000;
 	}
-	if (IRIT == 1105) 
+	if (IRIT == 1105)
 		printf("\nYOU CANNOT GO THAT WAY.");
 	if (IRIT == 1145) {
 		printf("\nCONGRATULATIONS! YOU SOLVED THE MYSTERY BY HAVING "
 			"THE %s", IWP);
 		printf("\nWHICH IS THE MURDER WEAPON, AT THE SCENE OF THE "
 			"CRIME WITH THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IRSN[ITST[9]][L]);
 		printf("\nWHO IS THE MURDERER");
 		ITST[2] += 200;
@@ -2261,7 +2258,7 @@ MMSD_1199:
 	IRIT=0;
 	IPR[2]=IPR[3]=0;
 	goto MMSB;
-	
+
 MMSD_80000:
 	IC=0;
 	if (IVEN[1] > 20000) IC=1;
@@ -2291,11 +2288,11 @@ MMSD_80010:
 	goto MMSD_80010;
 
 MMSD_80050:
-	if (IVEN[4] > 20000) 
+	if (IVEN[4] > 20000)
 		IVEN[4] = IVEN[4]-20000+193;
 	if ((IVEN[4] == 493) && (ITST[5] > 295))
 		IVEN[4] = 1493;
-	for (J=1; J<=52; J++) 
+	for (J=1; J<=52; J++)
 		if (IVEN[J] > 20000)
 			IVEN[J] = IVEN[J]-20000+ITST[1];
 	if (IRES[16] != 0)
@@ -2314,8 +2311,8 @@ MMSD_90000:
 	printf("\nYOU DON'T HAVE ENOUGH POINTS TO REINCARNATE");
 MMSD_90020:
 	printf("\n\nYOU SCORED %d POINTS WHICH RATES YOU AS A ", ITST[2]);
-	for (L=0; L<8; L++) 
-		putchar(ICLS[1+ITST[2]/85][L]);	
+	for (L=0; L<8; L++)
+		putchar(ICLS[1+ITST[2]/85][L]);
 	printf("\nSLEUTH.");
 	ourtime(ITIM);
 	ITR=(int)(60*ITIM[4]+ITIM[3]-60*(ITST[19]/100)-IFSD(ITST[19]));
@@ -2358,7 +2355,7 @@ MMSE:
 	if (IDS == 11) IDS=7;
 	if (IVEN[6] < 20000) IDW = 13-IFC;
 	if (IDW > 10) IDW -= 4;
-	
+
 	putchar('\n');
 	putchar('\n');
 	if ((ITST[5] > 450) && (IR < 84)) {
@@ -2579,7 +2576,7 @@ MMSE:
 			"GOING ");
 		for (I=0; I<8; I++)
 			putchar(IDTN[IDS][I]);
-			
+
 	}
 	if (IR == 21) {
 		printf("THERE IS A LARGE BELL IN THE CENTER OF THE TOWER "
@@ -2669,14 +2666,14 @@ MMSE:
 			"FOOT SHEER CLIFF TO THE EAST.");
 	}
 	IC=ITST[17]*200;
-	if ((IR == 35) && (ITST[17] < 5)) 
+	if ((IR == 35) && (ITST[17] < 5))
 		printf("\nTHE MANSION GATE IS ABOUT %d YARDS TO THE NORTH.",IC);
-	if ((IR == 35) && (ITST[17] > 4) && (ITST[17] < 10)) 
+	if ((IR == 35) && (ITST[17] > 4) && (ITST[17] < 10))
 		printf("\nYOU CAN JUST SEE THE GATE TO THE NORTH.");
 	if ((IR == 35) && (ITST[17] >= 10))
 		printf("\nIT GOES STRAIGHT NORTH AND SOUTH AS FAR AS YOU "
 			"CAN SEE.");
-	if (IR == 36) 
+	if (IR == 36)
 		printf("THE WALLS AND FLOOR ARE DAMP AND COVERED WITH A "
 			"SLIMY KIND OF MOSS MAKING\nIT SLIPPERY AND SLOW "
 			"GOING. THE WALL TO THE LEFT AS YOU LOOK DOWN THE "
@@ -2708,7 +2705,7 @@ MMSE:
 			putchar(IDTN[IDS][I]);
 		printf("\nOUT THE DOOR NEXT TO YOU.");
 	}
-	if ((IR == 40) && (IXT[140] == 0)) 
+	if ((IR == 40) && (IXT[140] == 0))
 		printf("\nTHE CORRIDOR WALLS HAVE CLOSED AND BLOCKED ALL THE "
 			"EXITS.");
 	if (IR == 41) {
@@ -2750,7 +2747,7 @@ MMSE:
 	}
 	if ((IR == 51) && (IVEN[42] == 1151)) {
 		printf(" IT HAS A RUBY NECKLACE DANGLING FROM ONE HAND AND A "
-			"BLUDGEON IN THE OTHER.");	
+			"BLUDGEON IN THE OTHER.");
 	}
 	if ((IR == 51) && (IVEN[40] == 1151)) {
 		printf(" NEXT TO THE TROLL IS AN ANIMATED STATUE OF A "
@@ -2848,7 +2845,7 @@ MMSE:
 	}
 	if ((IR > 63) && (IR < 73) && (IR != 67) && (IR != 70))
 		printf("\nYOU CAN GO IN ANY DIRECTION FROM HERE.");
-	if ((IR == 73) || (IR == 74)) 
+	if ((IR == 73) || (IR == 74))
 		printf("THE FOUNTAIN HAS NOT BEEN USED IN YEARS AND IS DRY. "
 			"THERE IS A PATH IN\nEACH DIRECTION BUT NORTH.");
 	if (IR == 75)
@@ -2864,7 +2861,7 @@ MMSE:
 		printf("\nAS YOU LOOK OUT OVER THE GRASSY MEADOW YOU CAN SEE "
 			"SOMETHING MOVING\nTOWARD YOU IN THE GRASS.");
 	}
-	if ((IR == 78) || (IR == 80)) 
+	if ((IR == 78) || (IR == 80))
 		printf("THE WALLS ARE SLIPPERY AND YOU CANNOT GET OUT.");
 	if (IR == 79)
 		printf("IT IS DRY HERE. THE WALLS ARE MADE WITH UNEVEN "
@@ -2922,7 +2919,7 @@ MMSE:
 	if (IR == 87) {
 		printf("YOU ARE IN A DUSTY ROOM THICK WITH COBWEBS. "
 			"YOU MUST STOOP TO GET AROUND.");
-		if (ITST[5] < 300) 
+		if (ITST[5] < 300)
 			printf("\nA SMALL GRATE LETS IN JUST ENOUGH LIGHT "
 				"TO SEE.");
 		if (IXT[265] != 0)
@@ -2946,7 +2943,7 @@ MMSE:
 		for (I=0; I<8; I++)
 			putchar(IDTN[IDW][I]);
 	}
-	if (IR == 91) 
+	if (IR == 91)
 		printf("YOU ARE ON A SCREENED IN PORCH IN FRONT OF THE "
 			"MANSION. THERE IS\nA SMALL PLAQUE ON THE DOOR WITH "
 			"WRITING ON IT. YOU CAN EITHER\nGO NORTH INTO THE "
@@ -2959,13 +2956,13 @@ MMSE:
 	if (IR == 93) {
 		printf("YOU ARE SOUTH OF THE HEAVY IRON GATE. A SIGN SAYS "
 			"ENTER AT YOUR OWN RISK.");
-		if (IVEN[4] == 493) 
+		if (IVEN[4] == 493)
 			printf("\nTHERE IS A SHINY BRASS LANTERN HANGING "
 				"ON THE GATE POST BY THE SIGN.");
-		if (IVEN[4] == 1493) 
+		if (IVEN[4] == 1493)
 			printf("\nTHERE IS A BRIGHTLY SHINING LANTERN HANGING "
 				"ON ON A BRASS HOOK NEXT TO THE SIGN.");
-		if ((IVEN[4] != 493)  && (IVEN[4] != 1493)) 
+		if ((IVEN[4] != 493)  && (IVEN[4] != 1493))
 			printf("\nTHERE IS AN EMPTY SHINY BRASS HOOK ON THE "
 				"GATE POST NEXT TO THE SIGN.");
 		printf("\nYOU CAN SEE THE ROAD TURN NORTH ALONG THE "
@@ -3042,27 +3039,27 @@ MMSF_1000:
 	    (IWRD[1][8] == 3) && (IWRD[1][9] == 71) && (ITST[5] < 450)) {
 		IPR[2] = 1040;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if ((IWRD[0][9] == 20) && (IWRD[1][8] == 3) && (IWRD[1][9] == 71)) {
 		IPR[2] = 520;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if (IWRD[0][10] > 1) {
 		IPR[2] = 320;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	ISC = ITST[2];
 	ISCP = ITST[3];
 	ISCL = (ISC/85+1)*85-ISC;
 	printf("\nSO FAR YOU HAVE SCORED %d POINTS. YOU CAN STILL REACH %d "
 		"POINTS", ISC, ISCP);
-	if (IWRD[0][9] == 20) {		
+	if (IWRD[0][9] == 20) {
 		IPR[2] = 0;
 		IPR[3] = 0;
-		goto MMSB;	
+		goto MMSB;
 	}
 	printf("\nOF THE ORIGINAL 999 IF YOU CONTINUE. THIS RATES YOU AS A ");
 	for (L=0; L<8; L++)
@@ -3091,12 +3088,12 @@ MMSF_1021:
 	if (IANS == 'N') {
 		IPR[2] = 1040;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if (IANS == 'Y') {
 		IPR[2] = 1032;
 		IPR[3] = 0;
-		goto MMSD;	
+		goto MMSD;
 	}
 	printf("\nWHAT? PLEASE ANSWER YES OR NO");
 	goto MMSF_1021;
@@ -3104,69 +3101,69 @@ MMSF_2000:
 	if (IWRD[0][10] == 1) {
 		IPR[2] = 1000;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if ((IWRD[0][10] > 2) && ((IWRD[2][8] != 5) || (IWRD[2][9] != 7) ||
 	    (IWRD[1][8] != 3) || (IWRD[3][8] != 4))) {
 		IPR[2] = 320;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if (IWRD[1][8] != 3) {
 		IPR[2] = 2011;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if ((IWRD[1][9] == 99) && (IWRD[0][9] == 22)) goto MMSF_2100;
 	if (IVEN[IWRD[1][9]] > 20000) {
 		IPR[2] = 2020;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if ((IWRD[0][10] > 2) && (IFSD(IVEN[IWRD[1][9]]) != IWRD[3][9]) &&
 	    (IVEN[IWRD[1][9]] < 10000)) {
 		IPR[2] = 2025;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if ((IVEN[IWRD[1][9]] == 0) && (IWRD[1][9] > 53)) {
 		IPR[2] = 320;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
-	if (((IFSD(IVEN[IWRD[1][9]])  != IR) && (IVEN[IWRD[1][9]] < 10000)) || 
-            ((IVEN[IWRD[1][9]] >= 10000) && 
+	if (((IFSD(IVEN[IWRD[1][9]])  != IR) && (IVEN[IWRD[1][9]] < 10000)) ||
+            ((IVEN[IWRD[1][9]] >= 10000) &&
 	    (IRES[IVEN[IWRD[1][9]]-(IVEN[IWRD[1][9]]/100)*100]-
 	    (IRES[IVEN[IWRD[1][9]]-(IVEN[IWRD[1][9]]/100)*100]/100)*100!=IR))||
 	    ((IVEN[IWRD[1][9]] > 10000) && (IWRD[0][9] == 21))) {
 		IPR[2] = 2030;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if (IWRD[1][9] == 88) {
 		IPR[2] = 2037;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if ((IWRD[1][9] > 99) && (IWRD[1][9] < 103)) {
 		IPR[2] = 2041;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if (IWRD[1][9] == 103) {
 		IPR[2] = 2042;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if ((IWRD[1][9] == 29) && (ITST[5] > 50) && (IVEN[29] == 1214)) {
 		IPR[2] = 2035;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if (IWRD[1][9] > 53) {
 		IPR[2] = 2040;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	IC = ITD(IVEN[IWRD[1][9]]);
 	for (J=1; J<=53; J++) {
@@ -3176,12 +3173,12 @@ MMSF_2000:
 	if ((IC > 16) && (IVEN[48] < 20000)) {
 		IPR[2] = 2060;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if (IC > 24) {
 		IPR[2] = 2060;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	K = IWRD[1][9];
 	if ((K != 5) && (K != 17) && (K != 29) && (K != 36) && (K != 37) &&
@@ -3200,7 +3197,7 @@ MMSF_2052:
 		if ((IRES[J] > 10000) || (ITD(IRES[J]) == 0) ||
 		    (IFSD(IRES[J]) == 0)) continue;
 		for (K=1; K<=53; K++) {
-			if ((IVEN[K] > 10000) || 
+			if ((IVEN[K] > 10000) ||
 			    (IFSD(IRES[J]) != IFSD(IVEN[K]))) continue;
 			R=RN(R);
 			if ((R > 0.2) && (ITST[5] < 250)) continue;
@@ -3214,7 +3211,7 @@ MMSF_2052:
 			}
 			R=RN(R);
 			if (R > 0.3) continue;
-			if (IC <= ITD(IRES[J])) 
+			if (IC <= ITD(IRES[J]))
 				IVEN[K] = 10000+(IVEN[K]/100)*100+J;
 			if ((IC <= ITD(IRES[J])) &&
 			    (IFSD(IRES[J]) == IR)) {
@@ -3230,53 +3227,53 @@ MMSF_2052:
 MMSF_2095:
 	IPR[2] = 2070;
 	IPR[3] = 0;
-	goto MMSG;	
+	goto MMSG;
 MMSF_2100:
 	if (IR != 90) {
 		IPR[2] = 2110;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	for (I=1; I<=52; I++) {
 		if (IVEN[I] > 20000) {
 			IPR[2] = 2120;
 			IPR[3] = 0;
-			goto MMSG;	
+			goto MMSG;
 		}
 	}
 	if (IVEN[53] > 20000) {
 		IPR[2] = 2140;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	ITST[32]=1;
 	IPR[2] = 2150;
 	IPR[3] = 0;
-	goto MMSG;	
+	goto MMSG;
 MMSF_3000:
 	if (IWRD[0][10] == 1) {
 		IPR[2] = 1000;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if ((IWRD[0][10] == 2) && (IWRD[1][8] == 5) && (IWRD[1][9] == 11))
 		goto MMSF_3200;
 	if ((IWRD[0][10] > 2) || (IWRD[1][8] != 3)) {
 		IPR[2] = 320;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if (IVEN[IWRD[1][9]] < 20000) {
 		IPR[2] = 3010;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
-	if (IR == 35) 
+	if (IR == 35)
 		IVEN[IWRD[1][9]] = ITD(IVEN[IWRD[1][9]])+98;
 	if (IR == 35) {
 		IPR[2] = 3015;
 		IPR[3] = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	if ((IR < 75) || (IR > 77)) goto MMSF_3100;
 	for (J=326; J<=328; J++) {
@@ -3285,12 +3282,12 @@ MMSF_3000:
 		if ((IXT[J]/100) == 79) {
 			IPR[2] = 3030;
 			IPR[3] = 0;
-			goto MMSG;	
+			goto MMSG;
 		}
 		if ((IXT[J]/100) != 79) {
 			IPR[2] = 3040;
 			IPR[3] = 0;
-			goto MMSG;	
+			goto MMSG;
 		}
 	}
 MMSF_3100:
@@ -3298,7 +3295,7 @@ MMSF_3100:
 		IVEN[30] = 0;
 		IPR[2]   = 3045;
 		IPR[3]   = 0;
-		goto MMSG;	
+		goto MMSG;
 	}
 	IVEN[IWRD[1][9]]=IVEN[IWRD[1][9]]-20000+IR;
 	for (J=2; J<=14; J++) {
@@ -3352,7 +3349,7 @@ MMSF_3200:
 	/*
 	 * Hmm, interesting bug here.  Clearly, this should be assigned
 	 * the value 325, but my "original" source gave it as 1325, which
-	 * which caused extremely whacked-out behavior.  This does not 
+	 * which caused extremely whacked-out behavior.  This does not
 	 * inspire great confidence in my original source!  Fixed 2/6/2000.
 	 */
 	if (IX == 1) IVEN[30]=325;
@@ -3403,9 +3400,9 @@ MMSF_5000:
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if ((IWRD[0][9] == 25) && (IWRD[1][8] == 5) && 	
+	if ((IWRD[0][9] == 25) && (IWRD[1][8] == 5) &&
 	    (IWRD[1][9] == 1)  && (IWRD[2][9] == 64)) IWRD[1][9]=4;
-	if ((IWRD[0][9] == 26) && ((IWRD[1][8] != 3) || 	
+	if ((IWRD[0][9] == 26) && ((IWRD[1][8] != 3) ||
 	    ((IWRD[1][9] != 3) && (IWRD[1][9] != 6) &&
 	     (IWRD[1][9] != 18) && (IWRD[1][9] != 21) &&
 	     (IWRD[1][9] != 22) && (IWRD[1][9] != 28) &&
@@ -3418,7 +3415,7 @@ MMSF_5000:
 		IWRD[2][8]=IWRD[1][8];
 		IWRD[2][9]=IWRD[1][9];
 		IWRD[1][8]=5;
-		IWRD[1][9]=4;	
+		IWRD[1][9]=4;
 	}
 	if ((IWRD[1][8] != 5) || (IWRD[1][9] != 4)) {
 		IPR[2] = 320;
@@ -3479,7 +3476,7 @@ MMSD_5100:
 			putchar('\n');
 			for (L=0; L<8; L++) putchar(IDTN[IC][L]);
 			printf("TO THE ");
-			for (L=0; L<16; L++) 
+			for (L=0; L<16; L++)
 				putchar(IRNM[IFSD(IROM[ITFD(IXT[J])])][L]);
 		}
 		if (ITFD(IXT[J]) == 0) {
@@ -3543,7 +3540,7 @@ MMSF_5600:
 		IPR[2] = 5730;
 		IPR[3] = 0;
 		goto MMSG;
-	}		
+	}
 	if ((IWRD[2][9] > 9) && (IWRD[2][9] < 13) && (IWRD[2][9] == ITST[10])){
 		IPR[2] = 5740;
 		IPR[3] = 0;
@@ -3614,7 +3611,7 @@ MMSF_5820:
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if ((IWRD[2][9] == 65) && (IWRD[2][9] == 66)){
+	if ((IWRD[2][9] == 65) || (IWRD[2][9] == 66)){
 		IPR[2] = 5886;
 		IPR[3] = 0;
 		goto MMSG;
@@ -3639,7 +3636,7 @@ MMSF_5820:
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if ((IWRD[2][9] == 97) && (IWRD[2][9] == 98)){
+	if ((IWRD[2][9] == 97) || (IWRD[2][9] == 98)){
 		IPR[2] = 5893;
 		IPR[3] = 0;
 		goto MMSG;
@@ -3664,7 +3661,7 @@ MMSF_6000:
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if (IVEN[30] < 20000) 	{
+	if (IVEN[30] < 20000) {
 		IPR[2] = 6010;
 		IPR[3] = 0;
 		goto MMSG;
@@ -3680,7 +3677,7 @@ MMSF_6000:
 	IPR[3] = IC;
 	goto MMSG;
 MMSF_6100:
-	if (IWRD[0][10] != 2) {	
+	if (IWRD[0][10] != 2) {
 		IPR[2] = 320;
 		IPR[3] = 0;
 		goto MMSG;
@@ -3727,11 +3724,11 @@ MMSF_8000:
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if((IWRD[0][9] == 30) && (((IWRD[1][8] == 5) && 
+	if((IWRD[0][9] == 30) && (((IWRD[1][8] == 5) &&
 	   (IWRD[1][9] != 2)) || ((IWRD[2][8] == 5) && (IWRD[2][9] != 2)) ||
 	   ((IWRD[1][8] != 5) && (IWRD[2][8] != 5)))) goto MMSF_11000;
 	if(((IWRD[1][8] != 3) && (IWRD[2][8] != 3)) ||
-	    (IWRD[0][10] > 3) || (IWRD[0][10] == 1) || 
+	    (IWRD[0][10] > 3) || (IWRD[0][10] == 1) ||
 	    ((IWRD[0][10] == 2) && (IWRD[0][9] == 30))) {
 		IPR[2] = 320;
 		IPR[3] = 0;
@@ -3743,7 +3740,7 @@ MMSF_8000:
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if ((IWRD[1][9] > 47) && 
+	if ((IWRD[1][9] > 47) &&
 	    ((IVEN[IWRD[1][9]] - (IVEN[IWRD[1][9]]/100)*100) != IR)) {
 		IPR[2] = 8031;
 		IPR[3] = 0;
@@ -3766,7 +3763,7 @@ MMSF_8000:
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if ((IWRD[1][9] != 19) && (IWRD[1][9] != 76) && (IWRD[1][9] != 89)) 
+	if ((IWRD[1][9] != 19) && (IWRD[1][9] != 76) && (IWRD[1][9] != 89))
 		goto MMSF_8010;
 	if ((IVEN[31] < 20000) && (IVEN[19] < 21000) && ((IR != 10) ||
 	    (IVEN[76] < 1000)) && ((IR != 14) || (IVEN[89] < 1000))) {
@@ -3825,9 +3822,9 @@ MMSF_9000:
 	if (IR == 86) IC=9050;
 	if (((IR < 35) && (IR > 27)) || ((IR < 52) && (IR > 41))) IC = 9051;
 	if ((IR == 8) && (IXT[84] == 0)) IC = 9048;
-	if (IC > 9043) 
+	if (IC > 9043)
 		printf("\nHINTS COST 20 POINTS EACH. DO YOU WANT ONE?  ");
-	if (IC < 9044) 
+	if (IC < 9044)
 		printf("\nHINTS WASTE 20 POINTS EACH. DO YOU WANT ONE?  ");
 MMSF_9020:
 	IANS = getchar();
@@ -3934,8 +3931,8 @@ MMSF_10050:
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if (IWRD[0][9] == 32) IROM[IR] += 10000;	
-	if (IWRD[0][9] == 33) IROM[IR] -= 10000;	
+	if (IWRD[0][9] == 32) IROM[IR] += 10000;
+	if (IWRD[0][9] == 33) IROM[IR] -= 10000;
 	if ((IWRD[0][9] != 32) || (IFSD(IRES[5]) != IR) ||
 	   (ITST[1] > 300)) goto MMSF_10090;
 	for (J=1; J<=360; J++) {
@@ -3984,7 +3981,7 @@ MMSF_10100:
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if (((IWRD[0][9] == 33) && (IXT[54] > 20000)) || 
+	if (((IWRD[0][9] == 33) && (IXT[54] > 20000)) ||
 	    ((IWRD[0][9] == 32) && (IXT[54] < 20000))) {
 		IPR[2] = 8020;
 		IPR[3] = 0;
@@ -4016,7 +4013,7 @@ MMSF_10200:
 		goto MMSG;
 	}
 	if (IWRD[1][9] != 35) goto MMSF_10300;
-	if (((IWRD[0][9] == 32) && (IFD(IVEN[35]) == 2)) || 
+	if (((IWRD[0][9] == 32) && (IFD(IVEN[35]) == 2)) ||
 	    ((IWRD[0][9] == 33) && (IFD(IVEN[35]) < 2))) {
 		IPR[2] = 8020;
 		IPR[3] = 0;
@@ -4063,7 +4060,7 @@ MMSF_11000:
 	if ((IWRD[0][9] == 30) && (((IWRD[1][8] == 5) && (IWRD[1][9] != 10)) ||
 	   ((IWRD[2][8] == 5) && (IWRD[2][9] != 10)) ||
 	   ((IWRD[1][8] != 5) && (IWRD[2][8] != 5)))) goto MMSF_12000;
-	if ((IWRD[0][9] == 35) && (((IWRD[1][9] == 2) && (IWRD[1][8] == 5) && 
+	if ((IWRD[0][9] == 35) && (((IWRD[1][9] == 2) && (IWRD[1][8] == 5) &&
 	    (IWRD[2][9] == 88) && (IWRD[2][8] == 3) && (IWRD[0][10] == 3)) ||
 	   ((IWRD[0][10] == 2) && (IWRD[1][9] == 88) && (IWRD[1][8] == 3)))) {
 		IPR[2] = 2038;
@@ -4071,14 +4068,14 @@ MMSF_11000:
 		goto MMSG;
 	}
 	if (((IWRD[0][10]  ==  2)  &&  (IWRD[0][9]  !=  34)) ||
-	    ((IWRD[0][10]  ==  3)  &&  (IWRD[1][8]  !=  5)  && 
+	    ((IWRD[0][10]  ==  3)  &&  (IWRD[1][8]  !=  5)  &&
 	     (IWRD[2][8]  !=  5))) {
 		IPR[2] = 320;
 		IPR[3] = 0;
 		goto MMSG;
 	}
-	if (((IWRD[1][8] == 5)  &&  (IWRD[1][9]  !=  10)  && 
-	    (IWRD[1][9]  !=  8)) || ((IWRD[2][8] == 5)  && 
+	if (((IWRD[1][8] == 5)  &&  (IWRD[1][9]  !=  10)  &&
+	    (IWRD[1][9]  !=  8)) || ((IWRD[2][8] == 5)  &&
 	    (IWRD[2][9]  !=  10)  &&  (IWRD[2][9]  !=  12))) {
 		IPR[2] = 320;
 		IPR[3] = 0;
@@ -4157,7 +4154,7 @@ MMSF_12000:
 	IPR[3] = 0;
 	goto MMSG;
 MMSF_12100:
-	if ((IVEN[17] > 20000) || ((IFSD(IVEN[17]) == IR) && 
+	if ((IVEN[17] > 20000) || ((IFSD(IVEN[17]) == IR) &&
 	    (IFD(IVEN[17]) != 1) && (IVEN[17] < 10000))) {
 		IPR[2] = 1040;
 		IPR[3] = 0;
@@ -4217,14 +4214,14 @@ MMSG:
 	if (IVEN[6] < 20000) IDW=13-IFC;
 	if (IDW > 10) IDW=IDW-4;
 
-	if (IRIT == 320) 
+	if (IRIT == 320)
 		printf("\nI CANNOT FIGURE OUT WHAT YOU ARE TRYING TO SAY");
-	if (IRIT == 520) 
+	if (IRIT == 520)
 		printf("\nNOTHING HAPPENS");
 	if (IRIT == 1000) {
 		printf("\nI AM NOT A MINDREADER, YOU WILL HAVE TO TELL ME "
 			" WHAT TO ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[0][L]);
 	}
 	if (IRIT == 1040) printf("\nOKAY");
@@ -4235,69 +4232,69 @@ MMSG:
 	if (IRIT == 1095) {
 		printf("\nYOUR ACTION OPENED A PANEL INTO THE SECRET PASSAGE "
 			"THAT YOU CAN\nENTER BY GOING ");
-		for (I=0; I<8; I++) 
+		for (I=0; I<8; I++)
 			putchar(IDTN[IC][I]);
 	}
-	if ((IRIT == 1095) && (ITST[1] == 5) && (ITST[5] > 50)) 
+	if ((IRIT == 1095) && (ITST[1] == 5) && (ITST[5] > 50))
 		printf("\nTHE COFFIN IS EMPTY AND THE LID WILL NOT STAY OPEN");
 	if ((IRIT == 1095) && (ITST[1] == 5) && (ITST[5] == 300)) IRES[5]=5;
-	if ((IRIT == 1095) && (ITST[1] == 5) && (ITST[5] <= 50) && 
+	if ((IRIT == 1095) && (ITST[1] == 5) && (ITST[5] <= 50) &&
 	    (IRES[5] == 5))
 		printf("\nTHE VAMPIRE IS IN THE COFFIN AND IS WAKING UP.");
 	if (IRIT == 1150) printf("\nIT IS DARK HERE\n");
 	if ((IRIT == 1150) && (IPR[3] == 1)) printf("\nIT IS AFTER SUNSET");
-	if ((IRIT == 1150) && (IPR[3] == 2)) 
+	if ((IRIT == 1150) && (IPR[3] == 2))
 		printf("\nA CURTAIN BLOCKS THE LIGHT");
 	if (IRIT == 2010) {
 		printf("\nYOU CANNOT ");
-		for (L=0; L<4; L++) 
+		for (L=0; L<4; L++)
 			putchar(IWRD[0][L]);
 		printf(" THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
 	if (IRIT == 2011) {
 		printf("\nYOU CANNOT ");
-		for (L=0; L<4; L++) 
+		for (L=0; L<4; L++)
 			putchar(IWRD[0][L]);
 		printf(" THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
 	if (IRIT == 2020) {
 		printf("\nYOU ALREADY HAVE THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
 	if (IRIT == 2025) {
 		printf("\nIT IS NOT IN THE POSSESSION OF THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[3][L]);
 	}
 	if (IRIT == 2030) {
 		printf("\nI DON'T SEE THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
 	if (IRIT == 2035) {
 		printf("\nTHE WOOD IS STACKED TOO HIGH.");
 	}
-	if (IRIT == 2037) 
+	if (IRIT == 2037)
 		printf("\nTHE DELICATE PAPYRUS OF THE SCROLL DISINTEGRATED "
 			"WHEN YOU TOUCHED IT.");
-	if (IRIT == 2038) 
+	if (IRIT == 2038)
 		printf("\nI KNEW YOU WOULD HAVE TO TRY THAT. WELL YOU JUST "
 			"BLEW PIECES\nOF PAPYRUS ALL OVER THE LIBRARY.");
 	if ((IRIT == 2037) || (IRIT == 2038)) IVEN[88]=1017;
 	if (IRIT == 2040) {
 		printf("\nYOU CANNOT CARRY THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 2041) 
+	if (IRIT == 2041)
 		printf("\nTHE GOLD BULL FIGURINE AND BARS WERE DELICATELY "
 			"BALANCED AND FELL.");
-	if (IRIT == 2042) 
+	if (IRIT == 2042)
 		printf("\nTHE DAGGER MADE A LOUD GRATING SOUND WHEN YOU PULLED "
 			"IT OUT OF THE SLAB.");
 	if ((IRIT == 2041) || (IRIT == 2042))  {
@@ -4307,40 +4304,40 @@ MMSG:
 		IPR[3] = 0;
 		goto MMSD;
 	}
-	if (IRIT == 2060) 
+	if (IRIT == 2060)
 		printf("\nYOU WILL HAVE TO DROP SOMETHING FIRST");
 	if (IRIT == 2070) {
 		printf("\nYOUR BOOTY NOW CONTAINS THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 2110) 
+	if (IRIT == 2110)
 		printf("\nI WOULD RECOMMEND THAT YOU TAKE YOUR SHOWERS IN "
 			"THE BATHROOM.");
-	if (IRIT == 2120) 
+	if (IRIT == 2120)
 		printf("\nYOU BETTER DROP YOUR BOOTY FIRST.");
-	if (IRIT == 2140) 
+	if (IRIT == 2140)
 		printf("\nYOU WOULD JUST GET YOUR CLOTHES WET.");
-	if (IRIT == 2150) 
+	if (IRIT == 2150)
 		printf("\nYOU ARE NOW REFRESHED AND SMELL A LOT BETTER ALSO.");
 	if (IRIT == 3010) {
 		printf("\nYOU DO NOT HAVE THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 3012) 
+	if (IRIT == 3012)
 		printf("\nYOU DO NOT HAVE IT.");
 	if (IRIT == 3015) {
 		printf("\nA WOOD NYMPH JUST RAN OUT FROM THE FOREST AND "
 			"RAN BACK IN AFTER PICKING\nUP THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 3030) 
+	if (IRIT == 3030)
 		printf("\nYOU HEAR A THUD AS IT HITS THE BOTTOM OF THE WELL");
-	if (IRIT == 3040) 
+	if (IRIT == 3040)
 		printf("\nYOU HEAR A SPLASH AS IT HITS THE WATER IN THE WELL");
-	if (IRIT == 3045) 
+	if (IRIT == 3045)
 		printf("\nTHE GLOBE JUST BROKE INTO A THOUSAND PIECES, "
 			"MOMENTARILY RELEASING\nA CLOUD OF HAZY SMOKE THAT "
 			"QUICKLY SURROUNDS YOU WITH VISIONS OF\nTHE "
@@ -4348,33 +4345,33 @@ MMSG:
 			"HIDEOUSLY.");
 	if (IRIT == 3110) {
 		printf("\nYOU NO LONGER HAVE THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 3210) 
+	if (IRIT == 3210)
 		printf("\nI WOULDN'T DO THAT. THE NYMPH WILL TAKE IT ALL.");
 	if (IRIT == 4010) {
 		printf("\nFIRST YOU HAVE TO FIND THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[3][L]);
 	}
 	if (IRIT == 4030) {
 		printf("\nYOU CANNOT GIVE IT TO THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[3][L]);
 	}
 	if ((IRIT == 3110) && (IPR[3] == 1)) {
 		printf("\nYOU GAVE IT TO THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[3][L]);
 	}
-	if (IRIT == 4050) 
+	if (IRIT == 4050)
 		printf("\nTHANKS. IT NEEDS THAT AROUND HERE.");
-	if (IRIT == 5010) 
+	if (IRIT == 5010)
 		printf("\nYOU CAN ONLY LOOK AT ITEMS AND INHABITANTS");
 	if (IRIT == 5020) {
 		printf("\nI DO NOT SEE THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[2][L]);
 	}
 	if (IRIT != 5070) goto MMSG_5100;
@@ -4398,7 +4395,7 @@ MMSG:
 		printf("\nIS WOUNDED AND WILL BE BETTER SOON.");
 	if ((IRES[IW63]/1000) == 1)
 		printf("\nIS HURT AND MOVING SLOWLY.");
-	if ((IRIT == 5070) && (IRES[IW63] > 1000) && (IW63 != 1)) 
+	if ((IRIT == 5070) && (IRES[IW63] > 1000) && (IW63 != 1))
 		goto MMSG_5100;
 	if ((IRIT == 5070) && (IW63 == 2))
 		printf("\n\nSHE IS AN OLDER THIN WOMAN WEARING A LONG BLACK "
@@ -4454,14 +4451,14 @@ MMSG:
 MMSG_5100:
 	if (IRIT == 5110) {
 		printf("\nYOU DO NOT HAVE THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[2][L]);
 	}
-	if (IRIT == 5130) 
+	if (IRIT == 5130)
 		printf("\nON CLOSER INSPECTION IT APPEARS AS THOUGH THE "
 			"GLOBE IS REALLY A DUSTY\nCRYSTAL BALL WITH MAGICAL "
 			"POWERS TO HELP YOU FIND INHABITANTS");
-	if (IRIT == 5140) 
+	if (IRIT == 5140)
 		printf("\nTHE ROPE IS ABOUT 50 FEET LONG WITH A GRAPLING "
 			"HOOK ON ONE END");
 	if (IRIT == 5170)
@@ -4469,30 +4466,30 @@ MMSG_5100:
 			"ARE NOT NEAR.");
 	if (IRIT == 5210)
 		printf("\nTHE CANDLE IS ABOUT %d INCHES LONG", IW63);
-	if ((IRIT == 5310) && (IVEN[27] > 21000)) 
+	if ((IRIT == 5310) && (IVEN[27] > 21000))
 		printf("\nTHE TORCH IS LIT");
-	if ((IRIT == 5310) && (IVEN[27] < 21000)) 
+	if ((IRIT == 5310) && (IVEN[27] < 21000))
 		printf("\nTHE TORCH IS ALL BURNT OUT");
 	if (IRIT == 5410)
 		printf("\nYOUR GUN HAS %d SHOTS LEFT", ITST[11]);
-	if (IRIT == 5510) 
-		printf("\nTHE TIME IS %d:%d", 
+	if (IRIT == 5510)
+		printf("\nTHE TIME IS %d:%d",
 			IPR[3]/100, IPR[3]-((IPR[3]/100)*100));
 	if (IRIT == 5610) {
 		printf("\nTHE BOOK CONTAINS WORDS I KNOW LIKE THE VERB ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IVRB[ITST[16]][L]);
 	}
 	if (IRIT == 5710) {
 		printf("\nYOU ARE FACING ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IDTN[IPR[3]][L]);
 	}
-	if (IRIT == 5720) 
+	if (IRIT == 5720)
 		printf("\nTHE VIAL IS EMPTY BUT SMELLS LIKE POISON");
-	if (IRIT == 5730) 
+	if (IRIT == 5730)
 		printf("\nTHE VIAL IS FULL OF POISON");
-	if (IRIT == 5740) 
+	if (IRIT == 5740)
 		printf("\nTHERE IS BLOOD ON IT");
 	if (IRIT == 5750) {
 		IVEN[22] += 1000;
@@ -4514,15 +4511,15 @@ MMSG_5100:
 		if ((ITST[5] > 150) && (ITST[5] <= 200) && (IRES[5] == 0)) {
 			printf("\nLAST MONTH, IN THIS MYSTERY, A PLAYER LEFT "
 				"A CURTAIN OPEN AND THE ");
-			for (L=0; L<8; L++) 
+			for (L=0; L<8; L++)
 				putchar(IRSN[ITST[39]][L]);
 			printf("\nSAW THE FULL MOON THROUGH IT AND "
 				"TRANSFORMED INTO A WEREWOLF.");
 		}
-		if ((ITST[5] > 200) && (ITST[5] <= 250)) 
+		if ((ITST[5] > 200) && (ITST[5] <= 250))
 			printf(" YOU WILL HAVE TO GO DOWN INTO THE DARK "
 				"PIT TO FIND A BATTERY FOR THE LANTERN");
-		if ((ITST[5] > 250) && (ITST[5] <= 300)) 
+		if ((ITST[5] > 250) && (ITST[5] <= 300))
 			printf(" BEWARE: THE MOON IS FULL TONIGHT AND SOMEONE "
 				"HERE IS A WEREWOLF.\nKILL IT AND YOU WILL "
 				"SCORE POINTS.");
@@ -4530,11 +4527,11 @@ MMSG_5100:
 	RND1=RND*7.7-(int)(RND*7.7);
 	IC=(int)(RND1*3);
 	if (IRIT == 5750) {
-		if ((IC == 0) && (ITST[5] > 300) && (ITST[5] <= 350) && 
+		if ((IC == 0) && (ITST[5] > 300) && (ITST[5] <= 350) &&
 		    (ITST[8] != 0)) {
 			printf(" IN CASE YOU HAVEN'T GUESSED, THE SCENE OF THE "
 				"CRIME IS THE ");
-			for (L=0; L<8; L++) 
+			for (L=0; L<8; L++)
 				putchar(IRNM[IFSD(IROM[ITST[8]])][L]);
 		}
 		if ((IC == 1) && (ITST[5] > 300) && (ITST[5] <= 350) &&
@@ -4546,19 +4543,19 @@ MMSG_5100:
 		    (ITST[8] != 0)) {
 			printf(" IN CASE YOU HAVEN'T GUESSED, THE MURDERER "
 				"IS THE ");
-			for (L=0; L<8; L++) 
+			for (L=0; L<8; L++)
 				putchar(IRSN[ITST[9]][L]);
 		}
 		if ((ITST[5] > 300) && (ITST[5] <= 350) && (ITST[8] == 0))
 			printf("\nMAGIC WORDS DO NOT WORK AFTER THE "
 				"GARDEN CLOSES.");
-		if ((ITST[5] > 350) && (ITST[5] <= 400)) 
+		if ((ITST[5] > 350) && (ITST[5] <= 400))
 			printf(" YOU MIGHT BE ABLE TO SCORE POINTS WHEN YOU "
 				"HEAR SOMETHING");
-		if ((ITST[5] > 400) && (ITST[5] <= 450)) 
+		if ((ITST[5] > 400) && (ITST[5] <= 450))
 			printf(" SOMEONE HAS TAKEN A LOT OF DYNAMITE INTO "
 				"THE PASSAGES BELOW THE MANSION");
-		if (ITST[5] > 450) 
+		if (ITST[5] > 450)
 			printf(" I'D GET OUT OF HERE IF I WERE YOU");
 		printf("\nSIGNED: A FRIEND");
 	}
@@ -4572,16 +4569,16 @@ MMSG_5100:
 	if (IRIT == 5782)
 		printf("\nTHE CHEST IS VERY OLD WITH MYSTERIOUS WRITING "
 			"ON IT;");
-	if (((IRIT == 5782) || (IRIT == 5783)) && (IFD(IVEN[35]) == 0)) 
+	if (((IRIT == 5782) || (IRIT == 5783)) && (IFD(IVEN[35]) == 0))
 		printf("\nTHERE IS A PADLOCK LOCKING AN UNUSUAL HASP OF "
 			"KNOTTED WIRE.");
 	if ((IRIT == 5782) && (IFSD(IRES[8]) == ITST[1]) && (IRES[8] < 10000))
 		printf("\nTHIS CHEST CONTAINS A CLUE, READS THE MAID ");
-	if ((IRIT == 5782) && (IFSD(IRES[14]) == ITST[1]) && 
+	if ((IRIT == 5782) && (IFSD(IRES[14]) == ITST[1]) &&
 	    (IRES[14] < 10000))
 		printf("\nDON'T OPEN THIS CHEST IN AN UNLOCKED ROOM, READS "
 			"THE MASTER BEHIND YOU");
-	if ((IRIT == 5782) && (IFSD(IRES[2]) == ITST[1]) && 
+	if ((IRIT == 5782) && (IFSD(IRES[2]) == ITST[1]) &&
 	    (IRES[2] < 10000))
 		printf("\nBE SURE TO CLOSE THE CHEST AS QUICKLY AS POSSIBLE, "
 			"READS THE\nLADY IN FRONT OF YOU");
@@ -4589,7 +4586,7 @@ MMSG_5100:
 		printf("\nYOU CAN SEE YOUR REFLECTION AND THINGS IN THE ROOM "
 			"BEHIND YOU");
 		if (IPR[3] > 0) {
-			for (L=0; L<8; L++) 
+			for (L=0; L<8; L++)
 				putchar(IRSN[IPR[3]][L]);
 			printf("\nALSO, BESIDE YOU IN THE MIRROR IS THE "
 				"REFLECTION OF THE ");
@@ -4634,10 +4631,10 @@ MMSG_5100:
 	if ((IRIT == 5888) || (IRIT == 5890))
 		printf("\nTHE TROLL IS A HUGE UGLY THING SLEEPING FITFULLY "
 			"ON A PILE OF BONES.");
-	if ((IRIT == 5888) && (IVEN[36] == 1151)) 
+	if ((IRIT == 5888) && (IVEN[36] == 1151))
 		printf(" IT HAS A BIG BLUDGEON IN ONE HAND AND A STRING OF "
 			"PEARLS IN THE OTHER.");
-	if ((IRIT == 5890) && (IVEN[39] == 1253)) 
+	if ((IRIT == 5890) && (IVEN[39] == 1253))
 		printf(" IT HAS A LARGE MACE IN ONE HAND AND A SILVER GOBLET "
 			"IN THE OTHER.");
 	if (IRIT == 5891)
@@ -4655,65 +4652,65 @@ MMSG_5100:
 		printf("\nI DON'T KNOW WHAT YOU EXPECT TO SEE");
 	if (IRIT == 6005) {
 		printf("\nIF YOU LOOK YOU CAN SEE THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 6010) 
+	if (IRIT == 6010)
 		printf("\nYOU WOULD NEED A CRYSTAL BALL TO SEE ANYONE "
 			"NOT WITH YOU");
 	IC=1;
-	if ((IFSD(IRES[IWRD[1][9]]) == 54) || 
-	    (IFSD(IRES[IWRD[1][9]]) == 71) || 
-	    (IFSD(IRES[IWRD[1][9]]) == 72) || 
-	    (IFSD(IRES[IWRD[1][9]]) == 81) || 
-	    (IFSD(IRES[IWRD[1][9]]) == 82) || 
-	    (IFSD(IRES[IWRD[1][9]]) == 85) || 
-	    (IFSD(IRES[IWRD[1][9]]) == 86) || 
-	    (IFSD(IRES[IWRD[1][9]]) == 92) || 
+	if ((IFSD(IRES[IWRD[1][9]]) == 54) ||
+	    (IFSD(IRES[IWRD[1][9]]) == 71) ||
+	    (IFSD(IRES[IWRD[1][9]]) == 72) ||
+	    (IFSD(IRES[IWRD[1][9]]) == 81) ||
+	    (IFSD(IRES[IWRD[1][9]]) == 82) ||
+	    (IFSD(IRES[IWRD[1][9]]) == 85) ||
+	    (IFSD(IRES[IWRD[1][9]]) == 86) ||
+	    (IFSD(IRES[IWRD[1][9]]) == 92) ||
 	    (IFSD(IRES[IWRD[1][9]]) == 91))
 		IC=2;
-	if (((IFSD(IRES[IWRD[1][9]]) >= 73) && 
-	    (IFSD(IRES[IWRD[1][9]]) <= 77)) || 
-	    (IFSD(IRES[IWRD[1][9]]) == 99)) 
+	if (((IFSD(IRES[IWRD[1][9]]) >= 73) &&
+	    (IFSD(IRES[IWRD[1][9]]) <= 77)) ||
+	    (IFSD(IRES[IWRD[1][9]]) == 99))
 		IC=3;
-	if ((IFSD(IRES[IWRD[1][9]]) ==  55)  ||  
-	    (IFSD(IRES[IWRD[1][9]]) ==  57)  ||  
-	    (IFSD(IRES[IWRD[1][9]]) ==  93)  ||  
-	    (ITST[1] ==  95)) 
+	if ((IFSD(IRES[IWRD[1][9]]) ==  55)  ||
+	    (IFSD(IRES[IWRD[1][9]]) ==  57)  ||
+	    (IFSD(IRES[IWRD[1][9]]) ==  93)  ||
+	    (ITST[1] ==  95))
 		IC=4;
 	if (IRIT == 6020) {
 		printf("\nAS YOU GAZE INTO THE CRYSTAL BALL, THE FIGURE OF "
 			"THE ");
-		for (L=0; L<8; L++) 
+		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 		printf("\nCOMES INTO FOCUS ");
 		putchar(IPRP[IC][0]);
 		putchar(IPRP[IC][1]);
 		printf(" THE ");
-		for (L=0; L<16; L++) 
+		for (L=0; L<16; L++)
 			putchar(IRNM[IPR[3]][L]);
 	}
 	if (IRIT == 6030)
 		printf("\nYOU DO NOT YET HAVE THE MEANS TO FIND ITEMS NOT "
 			"NEAR YOU.");
-	if ((IRIT == 6040) || (IRIT == 6035)) 
+	if ((IRIT == 6040) || (IRIT == 6035))
 		printf("\nTHE PARROT FLEW AWAY FOR A FEW MINUTES AND CAME "
 			"BACK SAYING:");
 	if ((IRIT == 6040) && (IVEN[IWRD[1][9]] < 10000))  {
-		printf("\nBAAAAAAKKK: "); 
-		for (L=0; L<16; L++) 
+		printf("\nBAAAAAAKKK: ");
+		for (L=0; L<16; L++)
 			putchar(IRNM[IFSD(IROM[IFSD(IVEN[IWRD[1][9]])])][L]);
 	}
 	if (IRIT == 6035)
 		printf("\nBAAAAAAKKK: SORRY CHARLIE!");
 	if ((IRIT == 6040) && (IVEN[IWRD[1][9]] > 10000))  {
-		printf("\nBAAAAAAKKK: "); 
-		for (L=0; L<8; L++) 
+		printf("\nBAAAAAAKKK: ");
+		for (L=0; L<8; L++)
 			putchar(IRSN[IFSD(IVEN[IWRD[1][9]])][L]);
 	}
-	if (IRIT == 7050) 
+	if (IRIT == 7050)
 		printf(" NOTHING");
-	if (IRIT == 8010) 
+	if (IRIT == 8010)
 		printf("\nI DON'T KNOW WHAT YOU EXPECT TO HAPPEN");
 	if (IRIT == 8015) {
 		printf("\nYOUR FOOD HAS BEEN EATEN BY THE ");
@@ -4732,7 +4729,7 @@ MMSG_5100:
 		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 8035) 
+	if (IRIT == 8035)
 		printf("\nTHE BATTERY IN YOUR LANTERN IS DEAD");
 	if (IRIT == 8040) {
 		printf("\nAFTER THE RADIO WARMS UP AND THE STATIC DIES "
@@ -4742,13 +4739,13 @@ MMSG_5100:
 			putchar(IRSN[ITST[9]][L]);
 		printf("\nOF MYSTERY MANSION FOR SEVERAL MURDERS");
 	}
-	if (IRIT == 8045) 
+	if (IRIT == 8045)
 		printf("\nTHE RADIO PLAYS SOFT MUSIC AFTER IT WARMS UP.");
-	if (IRIT == 8050) 
+	if (IRIT == 8050)
 		printf("\nYOU NEED A MATCH OR SOMETHING.");
-	if (IRIT == 8060) 
+	if (IRIT == 8060)
 		printf("\nTHE TORCH IS ALL BURNED OUT AND YOU CANNOT LIGHT IT");
-	if (IRIT == 9027) 
+	if (IRIT == 9027)
 		printf("\nYOU DON'T HAVE ENOUGH POINTS");
 	if (IRIT == 9040)
 		printf("\nDON'T ASK FOR HELP ANYMORE");
@@ -4758,44 +4755,44 @@ MMSG_5100:
 		printf("\nYOU WILL NEVER FIGURE IT ALL OUT");
 	if (IRIT == 9043)
 		printf("\nREAD WHAT I SAY CAREFULL.");
-	if (IRIT == 9044) 
+	if (IRIT == 9044)
 		printf("\nA GOOD WAY TO START IS BY SAYING 'GO WEST' OR 'GO "
 			"EAST'");
-	if (IRIT == 9045) 
+	if (IRIT == 9045)
 		printf("\nKEEP MOVING AND YOU WILL GET OUT OF THE WOODS "
 			"SOONER OR LATER");
-	if (IRIT == 9046) 
+	if (IRIT == 9046)
 		printf("\nTRY SAYING A MAGIC WORD");
-	if (IRIT == 9047) 
+	if (IRIT == 9047)
 		printf("\nTRY BRINGING A CHAIR IN HERE OR CLOSING THE DOOR");
-	if (IRIT == 9048) 
+	if (IRIT == 9048)
 		printf("\nUNLESS YOU KNOW A MAGIC WORD, THERE IS NOTHING "
 			"I CAN DO FOR YOU");
-	if (IRIT == 9049) 
+	if (IRIT == 9049)
 		printf("\nTHERE IS NOTHING YOU CAN DO UNLESS YOU KNOW A "
 			"MAGIC WORD OR HAVE A SHOVEL.");
-	if (IRIT == 9050) 
+	if (IRIT == 9050)
 		printf("\nUNLESS YOU KNOW A MAGIC WORD OR CAN OIL THE HINGE "
 			"ON THE FIRE ESCAPE,\nTHERE IS NOTHING I CAN DO FOR "
 			"YOU.");
-	if (IRIT == 9051) 
+	if (IRIT == 9051)
 		printf("\nTRY DROPPING THINGS TO USE AS A POINT OF REFERENCE.");
-	if (IRIT == 10020) 
+	if (IRIT == 10020)
 		printf("\nYOU HAVE NOT FIGURED OUT HOW TO DO THAT YET.");
-	if (IRIT == 10035) 
+	if (IRIT == 10035)
 		printf("\nTHE DOOR IS LOCKED");
-	if (IRIT == 10045) 
+	if (IRIT == 10045)
 		printf("\nTHE DOOR IS OPEN");
-	if (IRIT == 10046) 
+	if (IRIT == 10046)
 		printf("\nTHE DOOR IS CLOSED");
-	if (IRIT == 10010) 
+	if (IRIT == 10010)
 		printf("\nTHERE IS NO CURTAIN HERE");
-	if (IRIT == 10085) 
+	if (IRIT == 10085)
 		printf("\nYOU TRAPPED THE VAMPIRE IN THE DAYLIGHT AND HE "
 			"SHRIVELED INTO NOTHING.");
-	if (IRIT == 10105) 
+	if (IRIT == 10105)
 		printf("\nTHE GARDEN GATE IS NOW CLOSED PERMANENTLY.");
-	if (IRIT == 10110) 
+	if (IRIT == 10110)
 		printf("\nTHE GATE IS STUCK OPEN");
 	if (IRIT == 10115) {
 		printf("\nWITH A MIGHTY SHOVE, YOU MOVE THE GATE WITH THE "
@@ -4803,11 +4800,11 @@ MMSG_5100:
 		for (L=0; L<8; L++)
 			putchar(IRSN[IPR[3]][L]);
 	}
-	if (IRIT == 10116) 
+	if (IRIT == 10116)
 		printf("\nTHE GAUNTLET ALLOWS YOU TO EASILY MOVE THE GATE.");
-	if (IRIT == 10130) 
+	if (IRIT == 10130)
 		printf("\nTHE GATE IS TOO HEAVY FOR YOU TO OPEN ALONE.");
-	if (IRIT == 10210) 
+	if (IRIT == 10210)
 		printf("\n1000 SCREAMING DEMONS FLEE THE CONFINES OF THE "
 			"CHEST AFTER CENTURIES OF\nIMPRISONMENT AND SCATTER "
 			"ABOUT THE MANSION AND GROUNDS TO TORMENT YOU AND\n"
@@ -4864,12 +4861,12 @@ MMSG_5100:
 		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 20030) 
+	if (IRIT == 20030)
 		printf("\nDON'T BE SILLY");
 	IPR[2]=0;
 	IPR[3]=0;
 	goto MMSB;
-	
+
 MMSH:
 	IR=ITST[1];
 	IW71=IWRD[0][10];
@@ -4895,7 +4892,7 @@ MMSH:
 		case 16: goto MMSH_15000;
 		case 17: goto MMSH_16000;
 		case 18: goto MMSH_17000;
-		default: 
+		default:
 			printf("\nMMSH error: %d\n", IWRD[0][9]-35);
 			pak();
 			exit(-1);
@@ -4942,7 +4939,7 @@ RLret1:
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (((IW52 == 4) && (IFSD(IRES[8]) != IR)) || 
+	if (((IW52 == 4) && (IFSD(IRES[8]) != IR)) ||
 	    ((IW52 == 3) && (IW62 > 35) && (IVEN[IW62] != IR))) {
 		IPR[2] = 2030;
 		IPR[3] = 0;
@@ -5044,7 +5041,7 @@ MMSH_5000:
 		IPR[2] = 8032;
 		IPR[3] = 0;
 		goto MMSI;
-	}	
+	}
 	IC=0;
 	if ((IW62 == 55) && (ITST[8] == 0) && (IXT[54] < 20000) &&
 	    (IFSD(IRES[ITST[9]]) == IR)) {
@@ -5055,7 +5052,7 @@ MMSH_5000:
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if ((IW62 == 58) && (IXT[52] != 0) && (ITST[5] > 400)) 
+	if ((IW62 == 58) && (IXT[52] != 0) && (ITST[5] > 400))
 		IXT[52]=0;
 	if ((IXT[52] == 0) && (IW62 == 58)) {
 		IPR[2] = 5002;
@@ -5253,8 +5250,8 @@ RLret9:
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if ((IC == 5) && (IR == 5) && (IRES[5] == 5) && (IVEN[29] >= 20000) && 
-	   ((IVEN[11] > 20000) || (IVEN[14] > 20000)) && (ITST[5] < 50) && 
+	if ((IC == 5) && (IR == 5) && (IRES[5] == 5) && (IVEN[29] >= 20000) &&
+	   ((IVEN[11] > 20000) || (IVEN[14] > 20000)) && (ITST[5] < 50) &&
 	   (IXT[183] == 405)) {
 		IPR[2] = 10011;
 		IPR[3] = 0;
@@ -5272,11 +5269,11 @@ RLret9:
 	}
 	IP = IRES[IC]/1000 - ITST[31];
 	for (I=1; I<=89; I++) {
-		if ((I != 10) && (I != 11) && (I != 12) && (I != 14) && 
+		if ((I != 10) && (I != 11) && (I != 12) && (I != 14) &&
 		    (I != 34) && (I != 45) && (I != 48) && (I != 49))
 			continue;
 		if (IVEN[I] > 20000) IP += IFD(IVEN[I]);
-		if ((IFSD(IVEN[I]) == IC) && (IVEN[I] > 10000) && 
+		if ((IFSD(IVEN[I]) == IC) && (IVEN[I] > 10000) &&
 		    (IVEN[I] < 20000)) IP -= IFD(IVEN[J]);
 	}
 	R=RN(R);
@@ -5404,7 +5401,7 @@ MMSH_13000:
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (IW71 > 2) {	
+	if (IW71 > 2) {
 		IPR[2] = 320;
 		IPR[3] = 0;
 		goto MMSI;
@@ -5436,7 +5433,7 @@ MMSH_13000:
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (IW62 == 62) { 
+	if (IW62 == 62) {
 		IPR[2] = 1010;
 		IPR[3] = 0;
 		goto MMSI;
@@ -5452,7 +5449,7 @@ MMSH_14000:
 		goto MMSI;
 	}
 MMSH_14020:
-	printf("\nMYSTERY #? "); 
+	printf("\nMYSTERY #? ");
 	fgets(buf, sizeof(buf)-1, stdin);
 	buf[sizeof(buf)-1] = 0x00;
 	IC = atoi(buf);
@@ -5549,7 +5546,7 @@ MMSH_16000:
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if ((IRES[IWRD[1][9]] >= 1000) || (IWRD[1][9] == 4) || 
+	if ((IRES[IWRD[1][9]] >= 1000) || (IWRD[1][9] == 4) ||
 	    (IWRD[1][9] == 15)) {
 		IPR[2] = 20030;
 		IPR[3] = 0;
@@ -5602,32 +5599,32 @@ MMSH_16000:
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.4) {	
+	if (R < 0.4) {
 		IPR[2] = 23060;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.5) {	
+	if (R < 0.5) {
 		IPR[2] = 23070;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.58) {	
+	if (R < 0.58) {
 		IPR[2] = 23080;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.66) {	
+	if (R < 0.66) {
 		IPR[2] = 23090;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.74) {	
+	if (R < 0.74) {
 		IPR[2] = 23100;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.82) {	
+	if (R < 0.82) {
 		IPR[2] = 23110;
 		IPR[3] = 0;
 		goto MMSI;
@@ -5637,12 +5634,12 @@ MMSH_16000:
 	goto MMSI;
 MMSH_23130:
 	if (IWRD[1][9] != ITST[9]) goto MMSH_23160;
-	if (R < 0.33) {	
+	if (R < 0.33) {
 		IPR[2] = 23120;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.67) {	
+	if (R < 0.67) {
 		IPR[2] = 23140;
 		IPR[3] = 0;
 		goto MMSI;
@@ -5672,27 +5669,27 @@ MMSH_23160:
 	IPR[3] = 0;
 	goto MMSI;
 MMSH_23200:
-	if (R < 0.4) {	
+	if (R < 0.4) {
 		IPR[2] = 23210;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.5) {	
+	if (R < 0.5) {
 		IPR[2] = 23220;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.6) {	
+	if (R < 0.6) {
 		IPR[2] = 23230;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.7) {	
+	if (R < 0.7) {
 		IPR[2] = 23240;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.8) {	
+	if (R < 0.8) {
 		IPR[2] = 23140;
 		IPR[3] = 0;
 		goto MMSI;
@@ -5722,27 +5719,27 @@ MMSH_23250:
 	IPR[3] = 0;
 	goto MMSI;
 MMSH_23260:
-	if (R < 0.4) {	
+	if (R < 0.4) {
 		IPR[2] = 23270;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.5) {	
+	if (R < 0.5) {
 		IPR[2] = 23280;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.6) {	
+	if (R < 0.6) {
 		IPR[2] = 23290;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.7) {	
+	if (R < 0.7) {
 		IPR[2] = 23300;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.8) {	
+	if (R < 0.8) {
 		IPR[2] = 23140;
 		IPR[3] = 0;
 		goto MMSI;
@@ -5771,27 +5768,27 @@ MMSH_23310:
 	IPR[3] = 0;
 	goto MMSI;
 MMSH_23320:
-	if (R < 0.4) {	
+	if (R < 0.4) {
 		IPR[2] = 23330;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.5) {	
+	if (R < 0.5) {
 		IPR[2] = 23340;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.6) {	
+	if (R < 0.6) {
 		IPR[2] = 23350;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.7) {	
+	if (R < 0.7) {
 		IPR[2] = 23360;
 		IPR[3] = 0;
 		goto MMSI;
 	}
-	if (R < 0.8) {	
+	if (R < 0.8) {
 		IPR[2] = 23140;
 		IPR[3] = 0;
 		goto MMSI;
@@ -5808,7 +5805,7 @@ MMSH_17000:
 	IX=IC=0;
 	ID=24000+IR;
 	if (IR > 53) ID=24100;
-	if ((IVEN[3] > 20000) || (IVEN[3] == (200+IR)) || 
+	if ((IVEN[3] > 20000) || (IVEN[3] == (200+IR)) ||
 	    ((IVEN[3] > 10000) && (IFSD(IVEN[3]) == IR))) IX=24108;
 	for (I=2; I<=15; I++) {
 		if ((IRES[I] > 10000) || (IFSD(IRES[I]) != IR)) continue;
@@ -5823,7 +5820,7 @@ MMSH_17000:
 	    (IFSD(IRES[12]) == IR)) IX=24150;
 	if (((IRES[3]+IRES[14]) < 10000) && (IFSD(IRES[3]) == IR) &&
 	    (IFSD(IRES[14]) == IR) && (ITST[9] != 3) && (ITST[9] != 14) &&
-	    (ITST[8] < 28)) 
+	    (ITST[8] < 28))
 		IX=24160;
 	RNX=77.7*(double)IR/253.0-(double)(77.7*(double)IR/253.0);
 	if ((IX == 24160) && (RNX > 0.8)) IX=24164;
@@ -5859,23 +5856,23 @@ MMSI:
 	if (IDS == 11) IDS=7;
 	if (IVEN[6] < 20000) IDW=13-IFC;
 	if (IDW > 10) IDW=IDW-4;
-	
-	if (IRIT == 320) 
+
+	if (IRIT == 320)
 		printf("\nI CANNOT FIGURE OUT WHAT YOU ARE TRYING TO SAY");
-	if (IRIT == 520) 
+	if (IRIT == 520)
 		printf("\nNOTHING HAPPENS");
 	if (IRIT == 1000) {
 		printf("\nPLEASE TRY AGAIN. I NEED TO KNOW WHO OR WHAT TO ");
 		for (L=0; L<8; L++)
 			putchar(IWRD[0][L]);
 	}
-	if (IRIT == 1010) 
+	if (IRIT == 1010)
 		printf("\nTHANKS. THAT TASTED GOOD.");
-	if (IRIT == 1020) 
+	if (IRIT == 1020)
 		printf("\nUGH! THAT TASTED AWFUL.");
-	if (IRIT == 1040) 
+	if (IRIT == 1040)
 		printf("\nOKAY");
-	if (IRIT == 1065) 
+	if (IRIT == 1065)
 		printf("\nPROGRAM ERROR AT LINE %d", IPR[3]);
 	if ((IPR[3] == 7) || (IPR[3] == 16) || (IPR[3] == 25)) IC = IDS;
 	if ((IPR[3] == 5) || (IPR[3] == 14) || (IPR[3] == 23)) IC = IDW;
@@ -5906,12 +5903,12 @@ MMSI:
 		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 2037) 
+	if (IRIT == 2037)
 		printf("\nYOU MUST REALIZE BY NOW THAT THE DELICATE PAPYRUS "
 			"WILL CRUMBLE WHEN\nYOU SO MUCH AS EVEN BLOW ON IT.");
-	if (IRIT == 2080) 
+	if (IRIT == 2080)
 		printf("\nYOU JUST GOT SLAPPED BY THE MAID");
-	if (IRIT == 2090) 
+	if (IRIT == 2090)
 		printf("\nYOU ARE NOT ALLADIN. BESIDES, YOU KNOW HOW MUCH "
 			"TROUBLE HE GOT INTO");
 	if (IRIT == 3010) {
@@ -5920,14 +5917,14 @@ MMSI:
 			putchar(IWRD[1][L]);
 	}
 	if (IRIT == 9040) ITST[34]=(int)(500.1*RND);
-	if (IRIT == 3050) 
+	if (IRIT == 3050)
 		printf("\nYOU NEED A MATTER TRANSMITTER TO BEAM UP");
-	if (IRIT == 3060) 
+	if (IRIT == 3060)
 		printf("\nYOU DEMATERIALIZE IN SECONDS AND REMATERIALIZE "
 			"IN THE LABORATORY");
-	if (IRIT == 3070) 
+	if (IRIT == 3070)
 		printf("\nYOU HAVE TO BE IN THE LABORATORY TO BEAM DOWN");
-	if (IRIT == 3080) 
+	if (IRIT == 3080)
 		printf("\nTHE MATTER RECEIVER HAS TO BE SOMEWHERE ELSE TO "
 			"BEAM DOWN");
 	if (IRIT == 3090) {
@@ -5946,9 +5943,9 @@ MMSI:
 		for (L=0; L<8; L++)
 			putchar(IWRD[3][L]);
 	}
-	if (IRIT == 4050) 
+	if (IRIT == 4050)
 		printf("\nTHANKS. IT NEEDS THAT AROUND HERE.");
-	if (IRIT == 4055) 
+	if (IRIT == 4055)
 		printf("\nYOU DON'T HAVE A BROOM OR ANYTHING TO SWEEP WITH");
 	if (IRIT == 5020) {
 		printf("\nI DO NOT SEE THE ");
@@ -5965,10 +5962,10 @@ MMSI:
 				"THE POLICE LOCKED YOU IN\nTHE DUNGEON.");
 		}
 	}
-	if (IRIT == 5002) 
+	if (IRIT == 5002)
 		printf("\nTHE DISPATCHER SAID THAT A TAXI WOULD BE THERE IN "
 			"ABOUT 2 HOURS.");
-	if (IRIT == 5009) 
+	if (IRIT == 5009)
 		printf("\nALL YOU CAN GET IS A BUSY SIGNAL");
 	if (IRIT == 6005) {
 		printf("\nA DOZEN OR SO OF THE INDIANS AIMING IN YOUR "
@@ -5978,23 +5975,23 @@ MMSI:
 		IPR[3] = 0;
 		goto MMSD;
 	}
-	if (IRIT == 6010) 
+	if (IRIT == 6010)
 		printf("\nYOU JUST UNCOVERED SOME GOLD COINS.");
 	if (IRIT == 6015) {
 		printf("\nAFTER MOVING THE TABLE, A TRAP DOOR OPENED "
 			"REVEALING A GAUDY GAUNTLET.");
 		IVEN[48]=9115;
 	}
-	if (IRIT == 6030) 
+	if (IRIT == 6030)
 		printf("\nUNDER THE RAGS IS A STRANGE DRAWING OF A COMPASS "
 			"WITH THE NEEDLE BENT\nIN A U-SHAPE AND A CLOCK WITH "
 			"TWO MINUTE HANDS, ONE ON THE 10 AND THE OTHER\nON "
 			"THE 12");
-	if (IRIT == 6040) 
+	if (IRIT == 6040)
 		printf("\nUNDER THE RAGS IS A STRANGE DRAWING OF A COMPASS "
 			"WITH THE NEEDLE\nPOINTING NORTH AND A CLOCK WITH "
 			"ONLY A MINUTE HAND WHICH IS ON THE 12");
-	if (IRIT == 6041) 
+	if (IRIT == 6041)
 		printf("\nYOU CANNOT QUITE MOVE ANY OF THE BOULDERS.");
 	if (IRIT == 6042) {
 		printf("\nIN YOUR GREED TO FIND MORE LOOT, YOU MANAGED TO "
@@ -6002,11 +5999,11 @@ MMSI:
 			"IT ROLLED INTO AND BLOCKED THE ONLY EXIT.");
 		IXT[319]=0;
 	}
-	if (IRIT == 6043) 
+	if (IRIT == 6043)
 		printf("\nWITH A HEAVY PUSH, YOU MOVED ONE OF THE BOULDERS "
 			"A FEW FEET AND\nUNCOVERED A BAG OF PEARLS IN ONE OF "
 			"THE CRATERS THAT WAS UNDER IT.");
-	if (IRIT == 6044) 
+	if (IRIT == 6044)
 		printf("\nTHANKS TO THE GAUNTLET, YOU WERE ABLE TO MOVE A "
 			"BOULDER A FEW FEET\nBUT THERE WAS NOTHING UNDER IT.");
 	if (IRIT == 7010) {
@@ -6047,7 +6044,7 @@ MMSI:
 	}
 	if (IRIT == 8020)
 		printf("\nIT ALREADY IS");
-	
+
 	if (IRIT == 8030) {
 		printf("\nI DON'T SEE THE ");
 		for (L=0; L<8; L++)
@@ -6058,17 +6055,17 @@ MMSI:
 		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if (IRIT == 8032) 
+	if (IRIT == 8032)
 		printf("\nI DON'T SEE HOW YOU CAN DO THAT.");
-	if (IRIT == 8035) 
+	if (IRIT == 8035)
 		printf("\nTHE BATTERY IN YOUR LANTERN IS DEAD");
-	if (IRIT == 9027) 
+	if (IRIT == 9027)
 		printf("\nYOU DON'T HAVE ENOUGH POINTS");
 	if (IRIT == 9035) {
 		ITST[25] = 10;
 		printf("\nGIVE UP.\nYOU WILL NEVER FIGURE IT OUT.");
 	}
-	if (IRIT == 10020) 
+	if (IRIT == 10020)
 		printf("\nYOU HAVE NOT FIGURED OUT HOW TO DO THAT YET.");
 	if (IRIT == 10030) {
 		printf("\nYOU WERE KILLED IN THE STRUGGLE");
@@ -6104,17 +6101,17 @@ MMSI:
 		IVEN[29] = 0;
 		ITST[2] += 75;
 	}
-	if (IRIT == 11040) 
+	if (IRIT == 11040)
 		perror("\nI WAS UNABLE TO SAVE YOUR SITUATION: "
 			"open(\"mmfreeze\", O_WRONLY | O_CREAT)");
-	if (IRIT == 11050) 
+	if (IRIT == 11050)
 		printf("\nYOUR CURRENT SITUATION HAS BEEN SAVED. YOU MAY "
 			"RESUME THIS MYSTERY\nAT A LATER TIME BY ENTERING "
 			"RESTORE DURING YOUR FIRST MOVE OF A FUTURE GAME.");
 	if ((IRIT == 12040) && (ITST[15] == 17))
 		printf("\nYOU ARE NOW IN THE SAME SITUATION YOU WERE IN "
 			"WHEN YOU SUSPENDED\n");
-	if ((ITST[15] != 17) && (IRIT == 12040)) 
+	if ((ITST[15] != 17) && (IRIT == 12040))
 		printf("\nTHE DATA YOU LOADED IS FOR A DIFFERENT REVISION");
 	if (IRIT == 12060)
 		printf("\nERROR %d WHILE RESTORING FROZEN GAME", IPR[3]);
@@ -6155,7 +6152,7 @@ MMSI:
 		for (L=0; L<8; L++)
 			putchar(IRSN[IWRD[1][9]][L]);
 		printf("\nTELLS YOU THAT YOU MIGHT HAVE TO EXIT THROUGH THE "
-			"ATTIC.");	
+			"ATTIC.");
 	}
 	if (IRIT == 16035) {
 		printf("\nYOU JUST SMASHED THE PADLOCK TO PIECES.");
@@ -6231,7 +6228,7 @@ MMSI:
 		for (L=0; L<8; L++)
 			putchar(IWRD[1][L]);
 	}
-	if ((IRIT >= 23170) && (IRIT <= 23190)) 
+	if ((IRIT >= 23170) && (IRIT <= 23190))
 		printf("\nYOUR QUESTION IS ANSWERED WITH A HESITANT:");
 	if (IRIT == 23170) {
 		printf("\nI THINK THE MURDERER IS THE ");
@@ -6243,68 +6240,68 @@ MMSI:
 		for (L=0; L<16; L++)
 			putchar(IRNM[IFSD(IROM[ITST[8]])][L]);
 	}
-	if (IRIT == 23190) 
+	if (IRIT == 23190)
 		printf("\nI THINK THE MURDER WEAPON IS THE %s", IWP);
-	if (IRIT == 23210) 
+	if (IRIT == 23210)
 		printf("\nHE SAYS THAT HE DOESN'T WANT TO GO OUT OF THE "
 			"MANSION.");
-	if (IRIT == 23220) 
+	if (IRIT == 23220)
 		printf("\nHE SAYS THAT THERE IS AN ENTRACE TO A SECRET "
 			"LABORATORY OFF THE LARGE BEDROOM.");
-	if (IRIT == 23230) 
+	if (IRIT == 23230)
 		printf("\nHE SAYS THAT A SECRET PASSAGE CONNECTS ALL THREE "
 			"LEVELS OF THE MANSION.");
-	if (IRIT == 23240) 
+	if (IRIT == 23240)
 		printf("\nHE SAYS THAT THE MAID CAN BE VERY FRIENDLY.");
-	if (IRIT == 23270) 
+	if (IRIT == 23270)
 		printf("\nSHE SAYS SHE IS AFRAID TO GO BELOW THE MAIN FLOOR "
 			"OF THE MANSION.");
-	if (IRIT == 23280) 
+	if (IRIT == 23280)
 		printf("\nSHE SAYS THAT SHE WILL NOT LEAVE THE MANSION AND "
 			"GARDEN.");
-	if (IRIT == 23290) 
+	if (IRIT == 23290)
 		printf("\nSHE SAYS THAT SHE CAN READ THE WRITING ON THE "
 			"CHEST.");
-	if (IRIT == 23300) 
+	if (IRIT == 23300)
 		printf("\nSHE SAYS THAT THE ELF HIDES THINGS IN THE WELL.");
-	if (IRIT == 23330) 
+	if (IRIT == 23330)
 		printf("\nHE SAYS THAT THERE IS TREASURE AT THE END OF THE "
 			"CORRIDOR.");
-	if (IRIT == 23340) 
+	if (IRIT == 23340)
 		printf("\nHE SAYS THAT YOU CAN DISTRACT THE WOLF WITH FOOD.");
-	if (IRIT == 23350) 
+	if (IRIT == 23350)
 		printf("\nHE SAYS THAT YOU CAN TELL THE WELLS APART BY "
 			"DROPPING ITEMS NEAR THEM.");
-	if (IRIT == 23360) 
+	if (IRIT == 23360)
 		printf("\nHE SAYS THAT YOU CAN READ THE SCROLL BY USING "
 			"MAGIC WORDS.");
-	if (IRIT == 24001) 
+	if (IRIT == 24001)
 		printf("\nYOU CAN HEAR THE CHATTER OF THE MONKEY.");
-	if (IRIT == 24002) 
+	if (IRIT == 24002)
 		printf("\nYOU CAN HEAR THE ROAR OF THE FIRE IN THE FURNACE.");
-	if (IRIT == 24003) 
+	if (IRIT == 24003)
 		printf("\nYOU CAN HEAR STRANGE SOUNDS COMING UP FROM BELOW "
 			"YOU.");
-	if ((IRIT == 24004) || (IRIT == 24013) || (IRIT == 24022)) 
+	if ((IRIT == 24004) || (IRIT == 24013) || (IRIT == 24022))
 		printf("\nYOU CAN HEAR THE CREAKING OF WOOD AS YOU MOVE "
 			"ABOUT.");
-	if (IRIT == 24005) 
+	if (IRIT == 24005)
 		printf("\nIT IS DEATHLY QUIET HERE.");
-	if (IRIT == 24006) 
+	if (IRIT == 24006)
 		printf("\nYOU CAN HEAR SOMEONE WALKING IN THE ROOM ABOVE YOU.");
-	if (IRIT == 24007) 
+	if (IRIT == 24007)
 		printf("\nYOU CAN ONLY HEAR THE NOISE YOU MAKE BUMPING "
 			"INTO THINGS.");
-	if (IRIT == 24008) 
+	if (IRIT == 24008)
 		printf("\nYOU CAN HEAR THE SQUEAKING OF SEVERAL RATS AS "
 			"THEY SCURRY ABOUT.");
-	if (IRIT == 24009) 
+	if (IRIT == 24009)
 		printf("\nYOU CAN HEAR SOME KIND OF ANIMAL SCRATCHING TO "
 			"GET IN.");
-	if (IRIT == 24010) 
+	if (IRIT == 24010)
 		printf("\nYOU CAN HEAR BUT REALLY SENSE THE SOFT COMFORT"
 			"ABLE SURROUNDINGS.");
-	if (IRIT == 24011) 
+	if (IRIT == 24011)
 		printf("\nYOU CAN HEAR A SLIGHT ECHO HIGH ABOVE YOU.");
 	if ((IRIT == 24012) && (IFD(IVEN[75]) == 1))
 		printf("\nYOU CAN HEAR THE RADIO PLAYING.");
@@ -6331,7 +6328,7 @@ MMSI:
 	if (IRIT == 24020) for (L=0; L<8; L++) putchar(IDTN[IDS][L]);
 	if (IRIT == 24024) for (L=0; L<8; L++) putchar(IDTN[IDE][L]);
 	if (IRIT == 24025) for (L=0; L<8; L++) putchar(IDTN[IDN][L]);
-	if (IRIT == 24021)	
+	if (IRIT == 24021)
 		printf("\nYOU CAN HEAR THE WIND WHISTLING BETWEEN YOUR EARS.");
 	if ((IRIT == 24023) || (IRIT == 24026))
 		printf("\nYOU CAN HEAR THE SOUNDS OF CHAINS RATTLING ABOVE "
@@ -6395,7 +6392,7 @@ MMSI:
 			"THE ");
 		for (L=0; L<16; L++) putchar(IRNM[IFSD(IROM[ITST[8]])][L]);
 	}
-	if (IPR[3] == 24164) 
+	if (IPR[3] == 24164)
 		printf("\nYOU HEAR THE MASTER TELLING THE BUTLER ABOUT A "
 			"MURDER WITH THE %s", IWP);
 	if (IPR[3] == 24170) {
@@ -6410,7 +6407,7 @@ MMSI:
 			"THE ");
 		for (L=0; L<16; L++) putchar(IRNM[IFSD(IROM[ITST[8]])][L]);
 	}
-	if (IPR[3] == 24174) 
+	if (IPR[3] == 24174)
 		printf("\nYOU HEAR THE COOK TELLING THE GARDENER ABOUT A "
 			"MURDER WITH THE %s", IWP);
 	if (IPR[3] == 24180) {
@@ -6426,7 +6423,7 @@ MMSI:
 		for (L=0; L<16; L++) putchar(IRNM[IFSD(IROM[ITST[8]])][L]);
 		printf("\nAND MURDER.");
 	}
-	if (IPR[3] == 24184) 
+	if (IPR[3] == 24184)
 		printf("\nYOU HEAR THE LADY TELLING THE MAID ABOUT A "
 			"MURDER WITH THE %s", IWP);
 	IPR[2] = 0;
@@ -6436,7 +6433,7 @@ MMSI:
 		goto MMSC;
 	}
 	goto MMSB;
-	
+
 
 MMSJ:
 	IR=ITST[1];
@@ -6485,7 +6482,7 @@ MMSJ_1000:
 			IPR[3] = 0;
 			goto MMSK;
 		}
-		if (((IXT[J] < 20000) && (IWRD[0][9] == 54)) || 
+		if (((IXT[J] < 20000) && (IWRD[0][9] == 54)) ||
 		    ((IXT[J] > 20000) && (IWRD[0][9] == 55))) {
 			IPR[2] = 8020;
 			IPR[3] = 0;
@@ -6503,13 +6500,13 @@ MMSJ_1000:
 		}
 		if (IWRD[0][9] == 54) IXT[J] = IXT[J] - 10000;
 		if (IWRD[0][9] == 55) IXT[J] = IXT[J] + 10000;
-		if ((J < 121) && (IWRD[0][9] == 54)) 	
+		if ((J < 121) && (IWRD[0][9] == 54))
 			IXT[J+120] = IXT[J+120] - 10000;
-		if ((J > 120) && (IWRD[0][9] == 54)) 
+		if ((J > 120) && (IWRD[0][9] == 54))
 			IXT[J-120] = IXT[J-120] - 10000;
 		if ((J < 121) && (IWRD[0][9] == 55))
 			IXT[J+120] = IXT[J+120] + 10000;
-		if ((J > 120) && (IWRD[0][9] == 55)) 
+		if ((J > 120) && (IWRD[0][9] == 55))
 			IXT[J-120] = IXT[J-120] + 10000;
 		IPR[2] = 1040;
 		IPR[3] = 0;
@@ -6585,7 +6582,7 @@ RLret3:
 		IPR[3] = 0;
 		goto MMSK;
 	}
-	if ((ITST[11] == 0) && (IWRD[1][9] == 10) && (IVEN[20] <  20000)) 
+	if ((ITST[11] == 0) && (IWRD[1][9] == 10) && (IVEN[20] <  20000))
 		IVEN[20] = 0;
 	if (((ITST[11] > 0) && (IWRD[1][9] != 10)) || ((IWRD[1][9] == 10) &&
 	     (IVEN[20] < 20000)))
@@ -6607,7 +6604,7 @@ RLret3:
 		IPR[3] = 0;
 		goto MMSK;
 	}
-	if ((IWRD[1][9] == 1) || (IWRD[1][9] == 5) || 
+	if ((IWRD[1][9] == 1) || (IWRD[1][9] == 5) ||
 	    ((IWRD[1][9] == 10) && (IC == 0)) ||
 	    (IRES[IWRD[1][9]] > 10000)) {
 		IPR[2] = 16040;
@@ -6725,7 +6722,7 @@ MMSJ_6000:
 		IPR[3] = 0;
 		goto MMSK;
 	}
-	if ((IWRD[1][9] != 17) || (IWRD[2][9] != 1) || (IWRD[3][9] != 66)) 
+	if ((IWRD[1][9] != 17) || (IWRD[2][9] != 1) || (IWRD[3][9] != 66))
 		goto MMSJ_6100;
 	if (IVEN[17] < 20000) {
 		IPR[2] = 3010;
@@ -6742,7 +6739,7 @@ MMSJ_6000:
 	IPR[3] = 0;
 	goto MMSK;
 MMSJ_6100:
-	if ((IWRD[1][9] != 46) || (IWRD[2][9] != 2) || (IWRD[3][9] != 85)) 
+	if ((IWRD[1][9] != 46) || (IWRD[2][9] != 2) || (IWRD[3][9] != 85))
 		goto MMSJ_6200;
 	if (IVEN[46] < 20000) {
 		IPR[2] = 3010;
@@ -6883,7 +6880,7 @@ MMSK:
 	if (IDS == 11) IDS=7;
 	if (IVEN[6] < 20000) IDW=13-IFC;
 	if (IDW > 10) IDW=IDW-4;
-	if (IRIT == 320) 
+	if (IRIT == 320)
 		printf("\nI CANNOT FIGURE OUT WHAT YOU ARE TRYING TO SAY");
 	if (IRIT == 520)
 		printf("\nNOTHING HAPPENS");
@@ -6894,13 +6891,13 @@ MMSK:
 	}
 	if (IRIT == 1040) printf("\nOKAY");
 	if (IRIT == 1065) printf("\nPROGRAM ERROR AT LINE %d", IPR[3]);
-	if ((IPR[3] == 7) || (IPR[3] == 16) || (IPR[3] == 25)) IC=IDS;	
-	if ((IPR[3] == 5) || (IPR[3] == 14) || (IPR[3] == 23)) IC=IDW;	
-	if ((IPR[3] == 1) || (IPR[3] == 10) || (IPR[3] == 19)) IC=IDN;	
+	if ((IPR[3] == 7) || (IPR[3] == 16) || (IPR[3] == 25)) IC=IDS;
+	if ((IPR[3] == 5) || (IPR[3] == 14) || (IPR[3] == 23)) IC=IDW;
+	if ((IPR[3] == 1) || (IPR[3] == 10) || (IPR[3] == 19)) IC=IDN;
 	if (IRIT == 1095) {
 		printf("\nYOUR ACTION OPENED A PANEL INTO THE SECRET PASSAGE "
 			"THAT YOU CAN\nENTER BY GOING ");
-		for (I=0; I<8; I++) putchar(IDTN[IC][I]);	
+		for (I=0; I<8; I++) putchar(IDTN[IC][I]);
 	}
 	if (IRIT == 2010) {
 		printf("\nYOU CANNOT ");
@@ -7024,13 +7021,13 @@ MMRL:
 		if (I == 1) K=4;
 		if (I == 2) K=19;
 		if (I == 3) K=27;
-		if ((IFD(IVEN[K]) == 1) && 
-		    (((IVEN[K] < 10000) && (IFSD(IVEN[K]) == IR)) || 
-		     (IVEN[K] > 20000) || ((IVEN[K] > 10000) && 
+		if ((IFD(IVEN[K]) == 1) &&
+		    (((IVEN[K] < 10000) && (IFSD(IVEN[K]) == IR)) ||
+		     (IVEN[K] > 20000) || ((IVEN[K] > 10000) &&
 		     (IVEN[K] < 20000) && (IFSD(IRES[IFSD(IVEN[K])]) == IR))))
 			goto MMRL_return;
 	}
-	
+
 	if ((IR == 10) && (IVEN[76] > 1000)) goto MMRL_return;
 	if ((IR == 14) && (IVEN[89] > 1000)) goto MMRL_return;
 	if (IVEN[31] > 21000) goto MMRL_return;
@@ -7041,7 +7038,7 @@ MMRL:
 		goto MMSD;
 	}
 	if ((IROM[IR] > 20000) && (ITST[5] < 300)) goto MMRL_return;
-	if (IROM[IR] > 20000) {	
+	if (IROM[IR] > 20000) {
 		IPR[2]=1150;
 		IPR[3]=1;
 		goto MMSD;
