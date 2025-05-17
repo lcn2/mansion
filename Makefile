@@ -40,7 +40,7 @@ SRC= ${VERSION}
 
 TOPNAME= game
 INSTALL= install
-DESTDIR= /usr/local/games
+DESTDIR= /usr/local/bin
 MAN6DIR= /usr/local/man/man6
 
 all: mansion
